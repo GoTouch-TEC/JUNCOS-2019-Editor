@@ -1,0 +1,30 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: "primary";
+  height: 20%;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  background: "primary";
+  top: 0;
+  z-index: 1;
+}
+
+.disposicion{
+  margin-left: 90%;
+  
+}
+
+/*Cambio de tamaño a los container*/
+
+.container-fluid {
+  height: 200px;
+}
