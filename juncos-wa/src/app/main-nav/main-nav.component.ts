@@ -4,8 +4,10 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { LoginComponent } from '../users/login/login.component'
 
 @Component({
+  providers:[LoginComponent],
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.css']
@@ -17,7 +19,7 @@ export class MainNavComponent implements OnInit{
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService, private afsAuth: AngularFireAuth) { }
+  constructor(private login: LoginComponent ,private breakpointObserver: BreakpointObserver, private authService: AuthService, private afsAuth: AngularFireAuth) { }
   public app_name: string = 'JUNCOS';
   public isLogged: boolean = false;
   ngOnInit() {
@@ -34,6 +36,10 @@ export class MainNavComponent implements OnInit{
         this.isLogged = false;
       }
     });
+  }
+
+  onLogin(){
+      this.login.onLoginGoogle();
   }
 
   onLogout() {

@@ -37,11 +37,11 @@ export class CsvComponent {
       }
 
       reader.onerror = function() {
-        alert('Unable to read ' + input.files[0]);
+        alert('Imposible leer ' + input.files[0]);
       };
 
     } else {
-      alert("Please import valid .csv file.");
+      alert("Por favor seleccione un archivo .csv");
       this.fileReset();
     }
   }

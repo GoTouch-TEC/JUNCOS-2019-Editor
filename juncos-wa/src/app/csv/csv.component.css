@@ -1,16 +1,8 @@
-.csv-file-chooser-section {
-    padding: 10px;
-    margin: 5%;
-    border: 1px solid;
-    text-align: center;
+  .full-width-table {
+    width: 100%;
   }
   
-  .csv-result-table {
-    margin: 5%;
-    border: 1px solid #73AD21;
-  
-  }
-  
-  table, th, td {
-     border: 1px solid black;
+  .data-table{
+    width: 90%;
+    margin: 20px auto;
   }
