@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
-
+import { AngularFirestore } from '@angular/fire/firestore';
+import { ToastrService } from 'ngx-toastr';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-csv',
   templateUrl: './csv.component.html',
@@ -12,7 +14,7 @@ export class CsvComponent {
 
   title = 'app';
   public csvRecords: any[] = [];
-
+  constructor( private firestore: AngularFirestore,  private toastr: ToastrService) { }
   @ViewChild('fileImportInput') fileImportInput: any;
 
 
@@ -90,7 +92,31 @@ export class CsvComponent {
     this.csvRecords = [];
   }
 
+
+
+  storeData(){
+    this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
+    for (let csvData of this.csvRecords) { 
+      
+    
+      var data = JSON.parse(JSON.stringify(csvData));
+      this.firestore.collection('participantes').add(data);
+  
+      this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
+    }
+  }
+
 }
+
+
+interface Launch {
+  id: string;
+  date: Date;
+  value: number;
+}
+
+   
+
 
 export class CSVRecord{
 

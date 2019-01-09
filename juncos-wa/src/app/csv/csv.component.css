@@ -14,3 +14,19 @@
   table, th, td {
      border: 1px solid black;
   }
+
+  .center{
+    width: 80%;
+    margin: 20px auto;
+  }
+
+
+  .btn{
+      margin-right: 10px;
+      width: 20%
+  }
+
+  .btn_color{
+      background-color: gray;
+      color: #fff;
+  }
