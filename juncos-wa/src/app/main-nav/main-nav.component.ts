@@ -19,6 +19,7 @@ export class MainNavComponent implements OnInit{
       map(result => result.matches)
     );
 
+
   constructor(private login: LoginComponent ,private breakpointObserver: BreakpointObserver, private authService: AuthService, private afsAuth: AngularFireAuth) { }
   public app_name: string = 'JUNCOS';
   public isLogged: boolean = false;
@@ -37,7 +38,6 @@ export class MainNavComponent implements OnInit{
       }
     });
   }
-
   onLogin(){
       this.login.onLoginGoogle();
   }
