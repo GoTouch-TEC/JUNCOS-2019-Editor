@@ -1,20 +1,11 @@
 <div class="csv-file-chooser-section">
 
-    <button type="button" class="btn btn-secondary btn-sm">Seleccionar CSV</button>
-
     <input type="file" 
       #fileImportInput 
       name="Subir archivo" 
       id="txtFileUpload" (change)="fileChangeListener($event)" 
       accept=".csv" />
 
-      <div class="form-group">
-    <label for="file">Choose File</label>
-    <input type="file"
-           id="file"
-           (change)="handleFileInput($event.target.files)">
-</div>
-  
   </div>
   
   <div class="csv-result-table mat-elevation-z8 data-table">
@@ -22,13 +13,13 @@
     <table class="table">
       <thead>
         <tr>
-          <th>#</th>
+          <!-- <th>#</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Email</th>
           <th>Phone Number</th>
           <th>Title</th>
-          <th>Occupation</th>
+          <th>Occupation</th> -->
         </tr>
       </thead>
       <tbody>

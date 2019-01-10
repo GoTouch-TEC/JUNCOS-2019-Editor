@@ -3,6 +3,7 @@ import { ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-csv',
   templateUrl: './csv.component.html',
@@ -14,7 +15,7 @@ export class CsvComponent {
 
   title = 'app';
   public csvRecords: any[] = [];
-  constructor( private firestore: AngularFirestore,  private toastr: ToastrService) { }
+  constructor( private router: Router, private firestore: AngularFirestore,  private toastr: ToastrService) { }
   @ViewChild('fileImportInput') fileImportInput: any;
 
 
@@ -103,6 +104,7 @@ export class CsvComponent {
       this.firestore.collection('participantes').add(data);
   
       this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
+      this.router.navigate(['participantes']);
     }
   }
 
