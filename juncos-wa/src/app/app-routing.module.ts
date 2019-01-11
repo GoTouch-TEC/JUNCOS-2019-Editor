@@ -9,7 +9,6 @@ import { UniversidadesComponent } from './components/universidades/universidades
 import { LugaresComponent } from './components/lugares/lugares.component';
 import { Page404Component } from './page404/page404.component';
 import { RegisterComponent } from './users/register/register.component';
-import { ProfileComponent } from './users/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { CsvComponent } from './csv/csv.component';
@@ -26,7 +25,6 @@ const routes: Routes = [
   { path: 'lugares', component: LugaresComponent},
   { path: 'user/login', component: LoginComponent },
   { path: 'user/register', component: RegisterComponent },
-  { path: 'user/profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'readCSV', component: CsvComponent },
   { path: '**', component: Page404Component }
 ];

@@ -94,7 +94,6 @@ export class CsvComponent {
   }
 
 
-
   storeData(){
     this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
     for (let csvData of this.csvRecords) { 
@@ -116,9 +115,6 @@ interface Launch {
   date: Date;
   value: number;
 }
-
-   
-
 
 export class CSVRecord{
 

@@ -15,7 +15,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class RegisterComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService, private storage: AngularFireStorage) { }
-  @ViewChild('imageUser') inputImageUser: ElementRef;
+
 
   public email: string = '';
   public password: string = '';
@@ -36,29 +36,22 @@ export class RegisterComponent implements OnInit {
     this.uploadPercent = task.percentageChanges();
     task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
   }
-  onAddUser() {
-    this.authService.registerUser(this.email, this.password)
-      .then((res) => {
-        this.authService.isAuth().subscribe(user => {
-          if (user) {
-            user.updateProfile({
-              displayName: '',
-              photoURL: this.inputImageUser.nativeElement.value
-            }).then(() => {
-              this.router.navigate(['admin/list-books']);
-            }).catch((error) => console.log('error', error));
-          }
-        });
-      }).catch(err => console.log('err', err.message));
-  }
+  // onAddUser() {
+  //   this.authService.registerUser(this.email, this.password)
+  //     .then((res) => {
+  //       this.authService.isAuth().subscribe(user => {
+  //         if (user) {
+  //           user.updateProfile({
+  //             displayName: '',
+  //           }).then(() => {
+  //             this.router.navigate(['mainNav']);
+  //           }).catch((error) => console.log('error', error));
+  //         }
+  //       });
+  //     }).catch(err => console.log('err', err.message));
+  // }
   onLoginGoogle(): void {
     this.authService.loginGoogleUser()
-      .then((res) => {
-        this.onLoginRedirect();
-      }).catch(err => console.log('err', err.message));
-  }
-  onLoginFacebook(): void {
-    this.authService.loginFacebookUser()
       .then((res) => {
         this.onLoginRedirect();
       }).catch(err => console.log('err', err.message));
