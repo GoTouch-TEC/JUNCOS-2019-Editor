@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { DataTableParticipantesDataSource } from './data-table-participantes-datasource';
 import { ParticipantesService } from '../../services/participantes.service'
-import { Participante } from 'src/app/objects/participante.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr'
+import {DataTableParticipantesItem,displayedColumns as dc} from '../../interfaces/dataTableParticipantesitem'
 
 @Component({
   selector: 'app-data-table-participantes',
@@ -14,28 +14,26 @@ import { ToastrService } from 'ngx-toastr'
 export class DataTableParticipantesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  
   dataSource: DataTableParticipantesDataSource;
-
-  list: Participante[];
+  data: DataTableParticipantesItem[];
+  
   constructor(private service: ParticipantesService,
     private firestore: AngularFirestore,
     private toastr:ToastrService) { }
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
 
+  // Esto contiene las columnas que se van a mostrar en la tabla
+  displayedColumns = dc;
+  
   ngOnInit() {
-    this.service.getUsers().subscribe(actionArray => {
-      this.list = actionArray.map(item => {
-        return {
-          email: item.payload.doc.id,
-          ...item.payload.doc.data()
-        } as Participante;
-      })
-    });
+    
+    this.dataSource = new DataTableParticipantesDataSource(this.paginator, this.sort, this.service);
+    
   }
 
-  onEdit(admin: Participante) {
+ 
+  onEdit(admin: DataTableParticipantesItem) {
     this.service.formData = Object.assign({}, admin);
   }
 
@@ -45,4 +43,6 @@ export class DataTableParticipantesComponent implements OnInit {
       this.toastr.warning('Usuario eliminado exitosamente','Registro Admin');
     }
   }
+ 
+  
 }
