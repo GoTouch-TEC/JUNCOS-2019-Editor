@@ -13,13 +13,14 @@ import { AuthGuard } from './guards/auth.guard';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { CsvComponent } from './csv/csv.component';
 
+
 const routes: Routes = [
   //{ path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'mainNav', component: MainNavComponent},
   { path: 'login', component: MainPageComponent},
   { path: 'mainPage', component: MainPageComponent},
   { path: 'universidades' ,component: UniversidadesComponent},
-  { path: 'participantes', component: ParticipantesComponent},
+  { path: 'participantes' ,component: ParticipantesComponent},
   { path: 'eventos', component: EventosComponent},
   { path: 'medallero', component: MedalleroComponent},
   { path: 'lugares', component: LugaresComponent},

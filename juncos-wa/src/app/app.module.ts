@@ -21,7 +21,6 @@ import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { UserService } from './shared/user.service';
 
-
 import 'hammerjs';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MainNavComponent } from './main-nav/main-nav.component';
@@ -40,6 +39,7 @@ import { LoginComponent } from './users/login/login.component';
 import { RegisterComponent } from './users/register/register.component';
 import { CsvComponent } from './csv/csv.component';
 
+import {CdkTableModule} from '@angular/cdk/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,9 +53,11 @@ import { CsvComponent } from './csv/csv.component';
     Page404Component,
     LoginComponent,
     RegisterComponent,
-    CsvComponent
+    CsvComponent,
+  
   ],
   imports: [
+    CdkTableModule,
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

@@ -11,7 +11,9 @@ export class ParticipantesService {
 
   constructor(private firestore: AngularFirestore){ }
 
-  getUsers(){
+  getParticipantes(){
+   
     return this.firestore.collection('participantes').snapshotChanges();
   }
+  
 }

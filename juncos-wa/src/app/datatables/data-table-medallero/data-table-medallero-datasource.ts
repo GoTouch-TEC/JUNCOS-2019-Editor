@@ -3,13 +3,15 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
+
 // TODO: Replace this with your own data model type
+
 export interface DataTableMedalleroItem {
   // Nombre de la universidad.
   // Oro, 
   // Plata,
   // Bronce.
-
+   
   name: string;
   id: number;
 }
