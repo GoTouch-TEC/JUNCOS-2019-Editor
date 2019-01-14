@@ -8,4 +8,5 @@ export interface EventosInterface {
 
   }
 
-export var displayedColumns = ['Fecha','Hora','Titulo','Descripción','Referencia del lugar'];
+export var displayedColumns = ['date','time','title','description','reference'];
+export var nameColumns = ['Fecha','Hora','Titulo','Descripción','Referencia del lugar'];
