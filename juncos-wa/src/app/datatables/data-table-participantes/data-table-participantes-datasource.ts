@@ -89,14 +89,15 @@ export class DataTableParticipantesDataSource extends DataSource<DataTablePartic
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }
-
+    
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       //add the data you'll need for sorting.
-      switch (this.sort.active) {
+      let sortingValue =this.sort.active;
+      switch (sortingValue) {
         //case 'name': return compare(a.name, b.name, isAsc);
         //case 'id': return compare(+a.id, +b.id, isAsc);
-        default: return 0;
+        default: return compare(a[sortingValue], b[sortingValue], isAsc);;
       }
     });
   }
@@ -104,5 +105,5 @@ export class DataTableParticipantesDataSource extends DataSource<DataTablePartic
 
 /** Simple sort comparator for example ID/Name columns (for client-side sorting). */
 function compare(a, b, isAsc) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
