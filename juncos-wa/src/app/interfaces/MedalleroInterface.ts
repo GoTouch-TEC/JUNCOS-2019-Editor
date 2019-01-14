@@ -4,4 +4,5 @@ export interface UniversidadInterface {
 
   }
 
-export var displayedColumns = ['Nombre Universisdad'];
+export var displayedColumns = ['nameUniversity'];
+export var nameColumns = ['Nombre Universisdad'];
