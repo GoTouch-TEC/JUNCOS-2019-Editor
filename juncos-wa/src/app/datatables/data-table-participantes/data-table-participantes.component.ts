@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { DataTableParticipantesDataSource } from './data-table-participantes-datasource';
-import { ParticipantesService } from '../../services/participantes.service'
+import { GetCollections } from '../../services/getCollections.service'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr'
 import {ParticipantInterface,displayedColumns as dc} from '../../interfaces/ParticpantInterface'
@@ -18,7 +18,7 @@ export class DataTableParticipantesComponent implements OnInit {
   dataSource: DataTableParticipantesDataSource;
   data: ParticipantInterface[];
   
-  constructor(private service: ParticipantesService,
+  constructor(private service: GetCollections,
     private firestore: AngularFirestore,
     private toastr:ToastrService) { }
 
@@ -34,7 +34,7 @@ export class DataTableParticipantesComponent implements OnInit {
 
  
   onEdit(admin: ParticipantInterface) {
-    this.service.formData = Object.assign({}, admin);
+    this.service.formDataParticipantes = Object.assign({}, admin);
   }
 
   onDelete(id: string) {
@@ -44,5 +44,4 @@ export class DataTableParticipantesComponent implements OnInit {
     }
   }
  
-  
 }

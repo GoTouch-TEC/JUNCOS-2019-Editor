@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { DataTableLugaresDataSource } from './data-table-lugares-datasource';
+import { GetCollections } from '../../services/getCollections.service'
+import { AngularFirestore } from '@angular/fire/firestore';
+import { ToastrService } from 'ngx-toastr'
+import {LugarInterface,displayedColumns as dc} from '../../interfaces/LugarInterface'
 
 @Component({
   selector: 'app-data-table-lugares',
@@ -10,12 +14,18 @@ import { DataTableLugaresDataSource } from './data-table-lugares-datasource';
 export class DataTableLugaresComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  
   dataSource: DataTableLugaresDataSource;
+  data: LugarInterface[];
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  constructor(private service: GetCollections,
+    private firestore: AngularFirestore,
+    private toastr:ToastrService) { }
+
+  // Esto contiene las columnas que se van a mostrar en la tabla
+  displayedColumns = dc;
 
   ngOnInit() {
-    this.dataSource = new DataTableLugaresDataSource(this.paginator, this.sort);
+    this.dataSource = new DataTableLugaresDataSource(this.paginator, this.sort, this.service);
   }
 }

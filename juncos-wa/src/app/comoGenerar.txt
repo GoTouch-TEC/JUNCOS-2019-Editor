@@ -1,8 +1,0 @@
-ng generate @angular/material:material-table --name=data_table_disciplinas
-
-
-
-dddjdksdkjksajlajlksj
-
-eefekedledkl
-
