@@ -38,9 +38,10 @@ export class MainNavComponent implements OnInit{
       }
     });
   }
-  onLogin(){
-      this.login.onLoginGoogle();
-  }
+
+  // onLogin(){
+  //     this.login.onLoginGoogle();
+  // }
 
   onLogout() {
     this.afsAuth.auth.signOut();

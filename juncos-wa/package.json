@@ -36,6 +36,7 @@
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.3.3",
     "t": "^0.5.1",
+    "ts-transformer-keys": "^0.3.4",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },

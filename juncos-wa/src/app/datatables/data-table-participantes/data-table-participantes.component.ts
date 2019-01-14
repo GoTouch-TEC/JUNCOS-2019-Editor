@@ -4,7 +4,7 @@ import { DataTableParticipantesDataSource } from './data-table-participantes-dat
 import { ParticipantesService } from '../../services/participantes.service'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr'
-import {DataTableParticipantesItem,displayedColumns as dc} from '../../interfaces/dataTableParticipantesitem'
+import {ParticipantInterface,displayedColumns as dc} from '../../interfaces/ParticpantInterface'
 
 @Component({
   selector: 'app-data-table-participantes',
@@ -16,7 +16,7 @@ export class DataTableParticipantesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   
   dataSource: DataTableParticipantesDataSource;
-  data: DataTableParticipantesItem[];
+  data: ParticipantInterface[];
   
   constructor(private service: ParticipantesService,
     private firestore: AngularFirestore,
@@ -33,7 +33,7 @@ export class DataTableParticipantesComponent implements OnInit {
   }
 
  
-  onEdit(admin: DataTableParticipantesItem) {
+  onEdit(admin: ParticipantInterface) {
     this.service.formData = Object.assign({}, admin);
   }
 

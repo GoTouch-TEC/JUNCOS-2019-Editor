@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Participante } from '../objects/participante.model';
+import { ParticipantInterface } from '../interfaces/ParticpantInterface';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParticipantesService {
 
-  formData :Participante;
+  formData :ParticipantInterface;
 
   constructor(private firestore: AngularFirestore){ }
 

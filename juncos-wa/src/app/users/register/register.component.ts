@@ -50,12 +50,12 @@ export class RegisterComponent implements OnInit {
   //       });
   //     }).catch(err => console.log('err', err.message));
   // }
-  onLoginGoogle(): void {
-    this.authService.loginGoogleUser()
-      .then((res) => {
-        this.onLoginRedirect();
-      }).catch(err => console.log('err', err.message));
-  }
+  // onLoginGoogle(): void {
+  //   this.authService.loginGoogleUser()
+  //     .then((res) => {
+  //       this.onLoginRedirect();
+  //     }).catch(err => console.log('err', err.message));
+  // }
 
   onLoginRedirect(): void {
     this.router.navigate(['mainNav']);
