@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
+// import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service'
-import { NgForm } from '@angular/forms';
-import { AngularFirestore } from '@angular/fire/firestore';
+// import { NgForm } from '@angular/forms';
+// import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -21,13 +21,14 @@ export class LoginComponent implements OnInit {
   public isInvalidPassword: boolean = false;
 
   ngOnInit() {
+    
   }
 
   onLogin(): void {
     this.authService.loginEmailUser(this.email, this.password)
       .then((res) => {
         this.onLoginRedirect();
-        this.toastr.success('Inició secion', 'Bienvenido');
+        this.toastr.success('Inició sesión', 'Bienvenido');
       }).catch(err => {console.log('err', err.message); 
         this.toastr.warning('Credenciales invalidos','Error');
         this.isInvalidUser = true;
@@ -35,12 +36,12 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  onLoginGoogle(): void {
-    this.authService.loginGoogleUser()
-      .then((res) => {
-        this.onLoginRedirect();
-      }).catch(err => console.log('err', err.message));
-  }
+  // onLoginGoogle(): void {
+  //   this.authService.loginGoogleUser()
+  //     .then((res) => {
+  //       this.onLoginRedirect();
+  //     }).catch(err => console.log('err', err.message));
+  // }
 
 //   resetForm(form?: NgForm) {
 //     if (form != null)

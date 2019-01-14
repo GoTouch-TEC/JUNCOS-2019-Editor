@@ -4,11 +4,10 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { OnInit } from '@angular/core';
 import { ParticipantesService } from '../../services/participantes.service'
-import {DataTableParticipantesItem} from '../../interfaces/dataTableParticipantesitem'
+import { ParticipantInterface } from '../../interfaces/ParticpantInterface'
 
 
-
-const list: DataTableParticipantesItem[]=[]
+const list: ParticipantInterface[]=[]
 
 
 /**
@@ -16,12 +15,12 @@ const list: DataTableParticipantesItem[]=[]
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class DataTableParticipantesDataSource extends DataSource<DataTableParticipantesItem> implements OnInit {
+export class DataTableParticipantesDataSource extends DataSource<ParticipantInterface> implements OnInit {
   
-  dataStream = new BehaviorSubject<DataTableParticipantesItem[]>( list);
+  dataStream = new BehaviorSubject<ParticipantInterface[]>( list);
 
-  set data(v: DataTableParticipantesItem[]) { this.dataStream.next(v); }
-  get data(): DataTableParticipantesItem[] { return this.dataStream.value; }
+  set data(v: ParticipantInterface[]) { this.dataStream.next(v); }
+  get data(): ParticipantInterface[] { return this.dataStream.value; }
 
   constructor(private paginator: MatPaginator, private sort: MatSort, private service: ParticipantesService) {
     super();
@@ -31,7 +30,7 @@ export class DataTableParticipantesDataSource extends DataSource<DataTablePartic
         return {
           email: item.payload.doc.id,
           ...item.payload.doc.data()
-        } as DataTableParticipantesItem;
+        } as ParticipantInterface;
       })
     });
     
@@ -46,7 +45,7 @@ export class DataTableParticipantesDataSource extends DataSource<DataTablePartic
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<DataTableParticipantesItem[]> {
+  connect(): Observable<ParticipantInterface[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     
@@ -76,7 +75,7 @@ export class DataTableParticipantesDataSource extends DataSource<DataTablePartic
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: DataTableParticipantesItem[]) {
+  private getPagedData(data: ParticipantInterface[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -85,7 +84,7 @@ export class DataTableParticipantesDataSource extends DataSource<DataTablePartic
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: DataTableParticipantesItem[]) {
+  private getSortedData(data: ParticipantInterface[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }
