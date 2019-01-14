@@ -3,7 +3,7 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { OnInit } from '@angular/core';
-import { ParticipantesService } from '../../services/participantes.service'
+import { GetCollections } from '../../services/getCollections.service'
 import { ParticipantInterface } from '../../interfaces/ParticpantInterface'
 
 
@@ -22,7 +22,7 @@ export class DataTableParticipantesDataSource extends DataSource<ParticipantInte
   set data(v: ParticipantInterface[]) { this.dataStream.next(v); }
   get data(): ParticipantInterface[] { return this.dataStream.value; }
 
-  constructor(private paginator: MatPaginator, private sort: MatSort, private service: ParticipantesService) {
+  constructor(private paginator: MatPaginator, private sort: MatSort, private service: GetCollections) {
     super();
     
     this.service.getParticipantes().subscribe(actionArray => {
