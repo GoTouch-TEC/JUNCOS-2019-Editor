@@ -17,8 +17,6 @@ import { CsvLugaresComponent } from './csvComponents/csv-lugares/csv-lugares.com
 import { CsvMedalleroComponent } from './csvComponents/csv-medallero/csv-medallero.component';
 import { CsvParticipantesComponent } from './csvComponents/csv-participantes/csv-participantes.component';
 import { CsvUniversidadesComponent } from './csvComponents/csv-universidades/csv-universidades.component';
-
-
 const routes: Routes = [
   //{ path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'mainNav', component: MainNavComponent},
@@ -47,5 +45,6 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const routingComponents = [MainPageComponent, UniversidadesComponent,
-ParticipantesComponent,EventosComponent, MedalleroComponent,LoginComponent,LugaresComponent] 
+ParticipantesComponent,EventosComponent, MedalleroComponent,LoginComponent,LugaresComponent,CsvEventosComponent,
+CsvLugaresComponent,CsvMedalleroComponent,CsvParticipantesComponent,CsvUniversidadesComponent] 
 //cada vez que se agrega un component o una pagina con "cg g c <nombre> " hay que meterlo en este array

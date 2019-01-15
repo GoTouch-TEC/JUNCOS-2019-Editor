@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>Bienvenido</h1>
+<div mat-dialog-content>
+    <p>Todos los siguientes campos son obligatorios para poder agregar un nuevo participante.</p>
+    
+    <mat-form-field >
+        <input matInput placeholder="Nombre" [(ngModel)]="data.firstName" >
+    </mat-form-field>
+
+    <mat-form-field  >
+        <input matInput placeholder="Apellidos" [(ngModel)]="data.lastName" >
+    </mat-form-field>
+
+    <mat-form-field >
+        <input matInput placeholder="Cedula" [(ngModel)]="data.identification" >
+    </mat-form-field>
+
+    <mat-form-field  >
+        <input matInput placeholder="Carnet" [(ngModel)]="data.studentCard" >
+    </mat-form-field>
+
+    <mat-form-field >
+        <input matInput placeholder="Fecha de nacimiento" [(ngModel)]="data.birthDate" >
+    </mat-form-field>
+    
+    <mat-form-field >
+        <input matInput placeholder="email" [(ngModel)]="data.email">
+    </mat-form-field>
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="[data.firstName,data.lastName,data.identification,
+  data.studentCard,data.birthDate,data.email]" cdkFocusInitial>Agregar</button>
+</div>

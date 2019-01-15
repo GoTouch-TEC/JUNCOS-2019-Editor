@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild ,Inject} from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { DataTableParticipantesDataSource } from './data-table-participantes-datasource';
 import { GetCollections } from '../../services/getCollections.service'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr'
+
+import {MatDialogModule,MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ParticipantInterface,storedColumns as sc,displayedColumns as dc} from '../../interfaces/ParticpantInterface'
 
 @Component({
@@ -20,7 +22,7 @@ export class DataTableParticipantesComponent implements OnInit {
   
   constructor(private service: GetCollections,
     private firestore: AngularFirestore,
-    private toastr:ToastrService) { }
+    private toastr:ToastrService,public dialog: MatDialog) { }
 
 
   // storedColumns contiene los nombres o id's del interface para traer los datos de cada objeto dinamicamente
@@ -47,4 +49,47 @@ export class DataTableParticipantesComponent implements OnInit {
     }
   }
  
+ 
+  firstName: string;
+  lastName: string;
+  identification: string;
+  studentCard: string;
+  birthDate: string;
+  email: string;
+  list:string[];
+  
+  openDialog(): void {
+    const dialogRef = this.dialog.open(participantesDataTableDialog, {
+      width: '400px',
+      height: '70%',
+      data: {firstName: this.firstName,lastName: this.lastName,identification:this.identification,
+        studentCard: this.studentCard,birthData: this.birthDate,email:this.email
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result)
+      this.list = result;
+    });
+
+    //hay que agarrar list, validar los datos e insertarlos a la base de datos
+  }
+
+}
+
+@Component({
+  selector: 'participantes-dialog',
+  templateUrl: './participantesDialog.html',
+})
+export class participantesDataTableDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<participantesDataTableDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: ParticipantInterface) {} 
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }
