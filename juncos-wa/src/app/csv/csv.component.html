@@ -1,63 +1,29 @@
-<div class="csv-file-chooser-section">
+<div class="csv-file-chooser-section center">
 
   <input type="file"
     #fileImportInput
     name="Subir archivo"
     id="txtFileUpload" (change)="fileChangeListener($event)"
     accept=".csv" />
+    
+  <button mat-raised-button class="btn btn_color" (click)="storeData()">Subir</button>
+    
 
 </div>
 
-<div class="csv-result-table mat-elevation-z8 data-table">
+<div class="mat-elevation-z8 data-table">
+  <table mat-table class="full-width-table" [dataSource]="dataSource"  aria-label="Elements">
+        <ng-container [matColumnDef]="column" *ngFor="let column of storedColumns;let i = index;" >
+            <td>{{i+1}}</td>
+            <th mat-header-cell *matHeaderCellDef > {{displayedColumns[i]}} </th>
+            <td mat-cell *matCellDef="let element" (click)="onEdit(element)">  {{element[column]}} </td>
+            
+        </ng-container>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <!-- <th>#</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Phone Number</th>
-        <th>Title</th>
-        <th>Occupation</th>
-
-        firstName: string;
-        lastName: string;
-        identification: string;
-        studentCard: string;
-        birthDate: string;
-        email: string;
-      -->
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let csvData of csvRecords;let i = index;">
-
-        <td>{{i+1}}</td>
-        <td>
-          <span>{{csvData.firstName}}</span>
-        </td>
-        <td>
-          <span>{{csvData.lastName}}</span>
-        </td>
-        <td>
-          <span>{{csvData.identification}}</span>
-        </td>
-        <td>
-          <span>{{csvData.studentCard}}</span>
-        </td>
-        <td>
-          <span>{{csvData.birthDate}}</span>
-        </td>
-        <td>
-          <span>{{csvData.email}}</span>
-        </td>
-
-      </tr>
-    </tbody>
+    <tr mat-header-row *matHeaderRowDef="storedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: storedColumns;"></tr>
   </table>
 
-</div>
-<div class="center ">
-  <button mat-raised-button class="btn btn_color" (click)="storeData()">Subir</button>
-</div>
+</div> 
+
+
