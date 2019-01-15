@@ -23,7 +23,7 @@ export class DataTableEventosDataSource extends DataSource<EventosInterface> imp
   constructor(private paginator: MatPaginator, private sort: MatSort, private service: GetCollections) {
     super();
     
-    this.service.getParticipantes().subscribe(actionArray => {
+    this.service.getEventos().subscribe(actionArray => {
       this.data= actionArray.map(item => {
         return {
           date: item.payload.doc.id,
