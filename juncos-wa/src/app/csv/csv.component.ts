@@ -48,10 +48,14 @@ export class CsvComponent {
         let headersRow = this.getHeaderArray(csvRecordsArray);
 
         this.csvRecords = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
+        
+        console.log(csvRecordsArray.length);
+        console.log(this.csvRecords.length);
+       
         this.dataSource.setData(this.csvRecords);
       }
 
-      reader.onerror = function() {
+        reader.onerror = function() {
         alert('Imposible leer ' + input.files[0]);
       };
 
@@ -64,26 +68,41 @@ export class CsvComponent {
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
     var dataArr = []
 
-
-    for (let i = 1; i < csvRecordsArray.length; i++) {
+    let size = displayedColumns.length;
+   
+    for (let i = 0; i < (csvRecordsArray.length-1); i++) { // rows
       let data = csvRecordsArray[i].split(',');
 
-      let size = this.storedColumns.length;
-      if (data.length == headerLength) {
+      if (data.length == size) {
         var  csvRecord= <ParticipantInterface>{};
-        for (let j = 0; j < size; j++) {
-          
-           csvRecord[this.storedColumns[j]] = data[j].trim();
-   
-          
+        for (let j = 0; j < size; j++) { // cols
+          if(data[j].trim() == "" || data[j].trim == null){
+
+            this.toastr.error("Accion fallida", "Campos vacios en CSV");
+            return [];
+          }
+
+           csvRecord[displayedColumns[j]] = data[j].trim();          
         }
         console.log(csvRecord);
         dataArr.push(csvRecord);
-
         
       }
-    }
+      else{
+        console.log("ROW");
+        console.log(i);
+        console.log("data length");
+        console.log(data.length);
+        console.log("size");
+        console.log(size);
+        this.toastr.error("Accion fallida", "No fue posible cargar CSV - cantidad columnas menor");
+        return [];
     
+      }
+    
+    }
+    this.toastr.success("Accion Exitosa", "Cargado Correctamente");
+  
     return dataArr;
   }
 
