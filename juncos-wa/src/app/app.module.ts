@@ -40,6 +40,7 @@ import { RegisterComponent } from './users/register/register.component';
 import { CsvComponent } from './csv/csv.component';
 
 import {CdkTableModule} from '@angular/cdk/table';
+import { SetRowsComponent } from './components/set-rows/set-rows.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +55,7 @@ import {CdkTableModule} from '@angular/cdk/table';
     LoginComponent,
     RegisterComponent,
     CsvComponent,
+    SetRowsComponent,
   
   ],
   imports: [
