@@ -2,10 +2,14 @@ import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ParticipantInterface, displayedColumns } from '../interfaces/ParticpantInterface';
+import { ParticipantInterface, storedColumns as sc,displayedColumns as dc } from '../interfaces/ParticpantInterface';
+import { GetCollections } from '../services/getCollections.service';
+import {DataSource} from '@angular/cdk/collections';
+import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
+const list: ParticipantInterface[]=[]
 
 @Component({
   selector: 'app-csv',
@@ -13,14 +17,18 @@ import { ParticipantInterface, displayedColumns } from '../interfaces/Particpant
   styleUrls: ['./csv.component.css']
 })
 
-
 export class CsvComponent {
 
   title = 'app';
-  public csvRecords: any[] = [];
-  constructor( private router: Router, private firestore: AngularFirestore,  private toastr: ToastrService) { }
+  public csvRecords: ParticipantInterface[] = [];
+  
+  constructor( private service :GetCollections,private router: Router, private firestore: AngularFirestore,  private toastr: ToastrService) { }
+  
   @ViewChild('fileImportInput') fileImportInput: any;
-
+  
+  dataSource = new tableDataSource(this.csvRecords);
+  storedColumns = sc;
+  displayedColumns = dc;
 
   fileChangeListener($event: any): void {
 
@@ -40,6 +48,7 @@ export class CsvComponent {
         let headersRow = this.getHeaderArray(csvRecordsArray);
 
         this.csvRecords = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
+        this.dataSource.setData(this.csvRecords);
       }
 
       reader.onerror = function() {
@@ -59,12 +68,12 @@ export class CsvComponent {
     for (let i = 1; i < csvRecordsArray.length; i++) {
       let data = csvRecordsArray[i].split(',');
 
-      let size = displayedColumns.length;
+      let size = this.storedColumns.length;
       if (data.length == headerLength) {
         var  csvRecord= <ParticipantInterface>{};
         for (let j = 0; j < size; j++) {
           
-           csvRecord[displayedColumns[j]] = data[j].trim();
+           csvRecord[this.storedColumns[j]] = data[j].trim();
    
           
         }
@@ -74,6 +83,7 @@ export class CsvComponent {
         
       }
     }
+    
     return dataArr;
   }
 
@@ -111,5 +121,49 @@ export class CsvComponent {
     }
   }
 
+  
+ 
+}
+ 
+export class tableDataSource extends DataSource<any> {
+  dataStream = new BehaviorSubject<ParticipantInterface[]>( list);
+
+  set data(v: ParticipantInterface[]) { this.dataStream.next(v); }
+  get data(): ParticipantInterface[] { return this.dataStream.value; }
+
+  constructor(lista:ParticipantInterface[]) {
+    super()
+    this.data = lista;
+  }
+ 
+  setData(lista:ParticipantInterface[]){
+    this.data = lista;
+  }
+  connect(): Observable<ParticipantInterface[]> {
+    // Combine everything that affects the rendered data into one update
+    // stream for the data-table to consume.
+    
+    
+    const dataMutations = [
+      observableOf(this.data),
+      this.dataStream,
+      
+    ];
+
+    // Set the paginator's length
+    
+
+    return merge(...dataMutations).pipe(map(() => {
+      return this.data;
+    }));
+  }
+
+  // connect() {
+  //   return this.service.getParticipantes();
+  // }
+ 
+  disconnect() {
+ 
+  }
 }
 
