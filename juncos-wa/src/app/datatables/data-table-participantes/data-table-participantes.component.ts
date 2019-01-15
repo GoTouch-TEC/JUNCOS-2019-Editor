@@ -34,8 +34,10 @@ export class DataTableParticipantesComponent implements OnInit {
   }
 
  
-  onEdit(admin: ParticipantInterface) {
-    this.service.formDataParticipantes = Object.assign({}, admin);
+  onEdit(element: ParticipantInterface) {
+    console.log("Editar");
+    
+    this.service.formDataParticipantes = Object.assign({}, element);
   }
 
   onDelete(id: string) {

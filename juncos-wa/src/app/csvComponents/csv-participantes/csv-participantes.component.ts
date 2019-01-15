@@ -3,8 +3,8 @@ import { ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { ParticipantInterface, storedColumns as sc,displayedColumns as dc } from '../interfaces/ParticpantInterface';
-import { GetCollections } from '../services/getCollections.service';
+import { ParticipantInterface, storedColumns as sc,displayedColumns as dc } from '../../interfaces/ParticpantInterface';
+import { GetCollections } from '../../services/getCollections.service';
 import {DataSource} from '@angular/cdk/collections';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,12 +12,11 @@ import { map } from 'rxjs/operators';
 const list: ParticipantInterface[]=[]
 
 @Component({
-  selector: 'app-csv',
-  templateUrl: './csv.component.html',
-  styleUrls: ['./csv.component.css']
+  selector: 'app-csv-participantes',
+  templateUrl: './csv-participantes.component.html',
+  styleUrls: ['./csv-participantes.component.css']
 })
-
-export class CsvComponent {
+export class CsvParticipantesComponent {
 
   title = 'app';
   public csvRecords: ParticipantInterface[] = [];
@@ -186,4 +185,3 @@ export class tableDataSource extends DataSource<any> {
  
   }
 }
-

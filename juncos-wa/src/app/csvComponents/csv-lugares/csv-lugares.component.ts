@@ -3,24 +3,23 @@ import { ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { ParticipantInterface, storedColumns as sc,displayedColumns as dc } from '../interfaces/ParticpantInterface';
-import { GetCollections } from '../services/getCollections.service';
+import { LugarInterface, storedColumns as sc,displayedColumns as dc } from '../../interfaces/LugarInterface';
+import { GetCollections } from '../../services/getCollections.service';
 import {DataSource} from '@angular/cdk/collections';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-const list: ParticipantInterface[]=[]
+const list: LugarInterface[]=[]
 
 @Component({
-  selector: 'app-csv',
-  templateUrl: './csv.component.html',
-  styleUrls: ['./csv.component.css']
+  selector: 'app-csv-lugares',
+  templateUrl: './csv-lugares.component.html',
+  styleUrls: ['./csv-lugares.component.css']
 })
-
-export class CsvComponent {
+export class CsvLugaresComponent {
 
   title = 'app';
-  public csvRecords: ParticipantInterface[] = [];
+  public csvRecords: LugarInterface[] = [];
   
   constructor( private service :GetCollections,private router: Router, private firestore: AngularFirestore,  private toastr: ToastrService) { }
   
@@ -74,7 +73,7 @@ export class CsvComponent {
       let data = csvRecordsArray[i].split(',');
 
       if (data.length == size) {
-        var  csvRecord= <ParticipantInterface>{};
+        var  csvRecord= <LugarInterface>{};
         for (let j = 0; j < size; j++) { // cols
           if(data[j].trim() == "" || data[j].trim == null){
 
@@ -133,10 +132,10 @@ export class CsvComponent {
 
 
       var data = JSON.parse(JSON.stringify(csvData));
-      this.firestore.collection('participantes').add(data);
+      this.firestore.collection('lugares').add(data);
 
       
-      this.router.navigate(['participantes']);
+      this.router.navigate(['lugares']);
     }
     this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
   }
@@ -146,20 +145,20 @@ export class CsvComponent {
 }
  
 export class tableDataSource extends DataSource<any> {
-  dataStream = new BehaviorSubject<ParticipantInterface[]>( list);
+  dataStream = new BehaviorSubject<LugarInterface[]>( list);
 
-  set data(v: ParticipantInterface[]) { this.dataStream.next(v); }
-  get data(): ParticipantInterface[] { return this.dataStream.value; }
+  set data(v: LugarInterface[]) { this.dataStream.next(v); }
+  get data(): LugarInterface[] { return this.dataStream.value; }
 
-  constructor(lista:ParticipantInterface[]) {
+  constructor(lista:LugarInterface[]) {
     super()
     this.data = lista;
   }
  
-  setData(lista:ParticipantInterface[]){
+  setData(lista:LugarInterface[]){
     this.data = lista;
   }
-  connect(): Observable<ParticipantInterface[]> {
+  connect(): Observable<LugarInterface[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     
@@ -186,4 +185,3 @@ export class tableDataSource extends DataSource<any> {
  
   }
 }
-

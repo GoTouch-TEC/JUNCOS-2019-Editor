@@ -12,6 +12,11 @@ import { RegisterComponent } from './users/register/register.component';
 import { AuthGuard } from './guards/auth.guard';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { CsvComponent } from './csv/csv.component';
+import { CsvEventosComponent } from './csvComponents/csv-eventos/csv-eventos.component';
+import { CsvLugaresComponent } from './csvComponents/csv-lugares/csv-lugares.component';
+import { CsvMedalleroComponent } from './csvComponents/csv-medallero/csv-medallero.component';
+import { CsvParticipantesComponent } from './csvComponents/csv-participantes/csv-participantes.component';
+import { CsvUniversidadesComponent } from './csvComponents/csv-universidades/csv-universidades.component';
 
 
 const routes: Routes = [
@@ -27,6 +32,11 @@ const routes: Routes = [
   { path: 'user/login', component: LoginComponent },
   { path: 'user/register', component: RegisterComponent },
   { path: 'readCSV', component: CsvComponent },
+  { path: 'readCSV/eventos', component: CsvEventosComponent },
+  { path: 'readCSV/lugares', component: CsvLugaresComponent },
+  { path: 'readCSV/medallero', component: CsvMedalleroComponent },
+  { path: 'readCSV/participantes', component: CsvParticipantesComponent },
+  { path: 'readCSV/universidades', component: CsvUniversidadesComponent },
   { path: '**', component: Page404Component }
 ];
 

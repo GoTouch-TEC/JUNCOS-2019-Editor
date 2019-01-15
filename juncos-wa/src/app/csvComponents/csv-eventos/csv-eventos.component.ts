@@ -3,24 +3,23 @@ import { ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { ParticipantInterface, storedColumns as sc,displayedColumns as dc } from '../interfaces/ParticpantInterface';
-import { GetCollections } from '../services/getCollections.service';
+import { EventosInterface, storedColumns as sc,displayedColumns as dc } from '../../interfaces/EventoInterface';
+import { GetCollections } from '../../services/getCollections.service';
 import {DataSource} from '@angular/cdk/collections';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-const list: ParticipantInterface[]=[]
+const list: EventosInterface[]=[]
 
 @Component({
-  selector: 'app-csv',
-  templateUrl: './csv.component.html',
-  styleUrls: ['./csv.component.css']
+  selector: 'app-csv-eventos',
+  templateUrl: './csv-eventos.component.html',
+  styleUrls: ['./csv-eventos.component.css']
 })
-
-export class CsvComponent {
+export class CsvEventosComponent {
 
   title = 'app';
-  public csvRecords: ParticipantInterface[] = [];
+  public csvRecords: EventosInterface[] = [];
   
   constructor( private service :GetCollections,private router: Router, private firestore: AngularFirestore,  private toastr: ToastrService) { }
   
@@ -74,7 +73,7 @@ export class CsvComponent {
       let data = csvRecordsArray[i].split(',');
 
       if (data.length == size) {
-        var  csvRecord= <ParticipantInterface>{};
+        var  csvRecord= <EventosInterface>{};
         for (let j = 0; j < size; j++) { // cols
           if(data[j].trim() == "" || data[j].trim == null){
 
@@ -133,10 +132,10 @@ export class CsvComponent {
 
 
       var data = JSON.parse(JSON.stringify(csvData));
-      this.firestore.collection('participantes').add(data);
+      this.firestore.collection('eventos').add(data);
 
       
-      this.router.navigate(['participantes']);
+      this.router.navigate(['eventos']);
     }
     this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
   }
@@ -146,20 +145,20 @@ export class CsvComponent {
 }
  
 export class tableDataSource extends DataSource<any> {
-  dataStream = new BehaviorSubject<ParticipantInterface[]>( list);
+  dataStream = new BehaviorSubject<EventosInterface[]>( list);
 
-  set data(v: ParticipantInterface[]) { this.dataStream.next(v); }
-  get data(): ParticipantInterface[] { return this.dataStream.value; }
+  set data(v: EventosInterface[]) { this.dataStream.next(v); }
+  get data(): EventosInterface[] { return this.dataStream.value; }
 
-  constructor(lista:ParticipantInterface[]) {
+  constructor(lista:EventosInterface[]) {
     super()
     this.data = lista;
   }
  
-  setData(lista:ParticipantInterface[]){
+  setData(lista:EventosInterface[]){
     this.data = lista;
   }
-  connect(): Observable<ParticipantInterface[]> {
+  connect(): Observable<EventosInterface[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     
@@ -186,4 +185,3 @@ export class tableDataSource extends DataSource<any> {
  
   }
 }
-
