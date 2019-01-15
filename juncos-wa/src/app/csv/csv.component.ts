@@ -68,9 +68,9 @@ export class CsvComponent {
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
     var dataArr = []
 
-    let size = displayedColumns.length;
+    let size = this.storedColumns.length;
    
-    for (let i = 0; i < (csvRecordsArray.length-1); i++) { // rows
+    for (let i = 1; i < (csvRecordsArray.length-1); i++) { // rows
       let data = csvRecordsArray[i].split(',');
 
       if (data.length == size) {
@@ -82,7 +82,7 @@ export class CsvComponent {
             return [];
           }
 
-           csvRecord[displayedColumns[j]] = data[j].trim();          
+           csvRecord[this.storedColumns[j]] = data[j].trim();          
         }
         console.log(csvRecord);
         dataArr.push(csvRecord);
@@ -135,9 +135,10 @@ export class CsvComponent {
       var data = JSON.parse(JSON.stringify(csvData));
       this.firestore.collection('participantes').add(data);
 
-      this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
+      
       this.router.navigate(['participantes']);
     }
+    this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
   }
 
   
