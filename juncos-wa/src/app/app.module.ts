@@ -41,6 +41,11 @@ import { CsvComponent } from './csv/csv.component';
 
 import {CdkTableModule} from '@angular/cdk/table';
 import { SetRowsComponent } from './components/set-rows/set-rows.component';
+import { CsvParticipantesComponent } from './csvComponents/csv-participantes/csv-participantes.component';
+import { CsvUniversidadesComponent } from './csvComponents/csv-universidades/csv-universidades.component';
+import { CsvMedalleroComponent } from './csvComponents/csv-medallero/csv-medallero.component';
+import { CsvLugaresComponent } from './csvComponents/csv-lugares/csv-lugares.component';
+import { CsvEventosComponent } from './csvComponents/csv-eventos/csv-eventos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +61,11 @@ import { SetRowsComponent } from './components/set-rows/set-rows.component';
     RegisterComponent,
     CsvComponent,
     SetRowsComponent,
+    CsvParticipantesComponent,
+    CsvUniversidadesComponent,
+    CsvMedalleroComponent,
+    CsvLugaresComponent,
+    CsvEventosComponent,
   
   ],
   imports: [
