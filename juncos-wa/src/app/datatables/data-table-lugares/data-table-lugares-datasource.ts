@@ -23,7 +23,7 @@ export class DataTableLugaresDataSource extends DataSource<LugarInterface> imple
   constructor(private paginator: MatPaginator, private sort: MatSort, private service: GetCollections) {
     super();
     
-    this.service.getParticipantes().subscribe(actionArray => {
+    this.service.getLugar().subscribe(actionArray => {
       this.data= actionArray.map(item => {
         return {
           address: item.payload.doc.id,

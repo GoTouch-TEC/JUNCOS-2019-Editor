@@ -24,7 +24,7 @@ export class DataTableUniversidadesDataSource extends DataSource<UniversidadInte
   constructor(private paginator: MatPaginator, private sort: MatSort, private service: GetCollections) {
     super();
     
-    this.service.getParticipantes().subscribe(actionArray => {
+    this.service.getUniverisdades().subscribe(actionArray => {
       this.data= actionArray.map(item => {
         return {
           nameUniversity: item.payload.doc.id,
