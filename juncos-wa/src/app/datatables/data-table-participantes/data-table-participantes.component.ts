@@ -4,7 +4,7 @@ import { DataTableParticipantesDataSource } from './data-table-participantes-dat
 import { GetCollections } from '../../services/getCollections.service'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr'
-import {ParticipantInterface,displayedColumns as dc} from '../../interfaces/ParticpantInterface'
+import {ParticipantInterface,storedColumns as sc,displayedColumns as dc} from '../../interfaces/ParticpantInterface'
 
 @Component({
   selector: 'app-data-table-participantes',
@@ -23,9 +23,10 @@ export class DataTableParticipantesComponent implements OnInit {
     private toastr:ToastrService) { }
 
 
-  // Esto contiene las columnas que se van a mostrar en la tabla
+  // storedColumns contiene los nombres o id's del interface para traer los datos de cada objeto dinamicamente
+  // displayedColumns contiene los nombres que van a ser mostrados en los headers de las columnas en la tabla
   displayedColumns = dc;
-  
+  storedColumns = sc;
   ngOnInit() {
     
     this.dataSource = new DataTableParticipantesDataSource(this.paginator, this.sort, this.service);

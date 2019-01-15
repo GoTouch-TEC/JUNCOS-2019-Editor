@@ -13,6 +13,7 @@ export interface ParticipantInterface {
       birthDate: string;
       email: string;
   }
-
-export var displayedColumns = ['firstName', 'lastName','identification','studentCard','birthDate','email'];
-export var nameColumns = ['Nombre', 'Apellido','Identificación','Carnet Estudiante','Fecha Nacimiento','Email'];
+// storedColumns contiene los nombres o id's del interface para traer los datos de cada objeto dinamicamente
+// displayedColumns contiene los nombres que van a ser mostrados en los headers de las columnas en la tabla
+export var storedColumns = ['firstName', 'lastName','identification','studentCard','birthDate','email'];
+export var displayedColumns = ['Nombre', 'Apellidos','Identificación','Carnet Estudiante','Fecha Nacimiento','Email'];
