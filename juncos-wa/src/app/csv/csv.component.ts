@@ -4,6 +4,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ParticipantInterface, displayedColumns } from '../interfaces/ParticpantInterface';
+
+
 @Component({
   selector: 'app-csv',
   templateUrl: './csv.component.html',
@@ -52,28 +55,29 @@ export class CsvComponent {
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
     var dataArr = []
 
+
     for (let i = 1; i < csvRecordsArray.length; i++) {
       let data = csvRecordsArray[i].split(',');
 
-    
+      let size = displayedColumns.length;
       if (data.length == headerLength) {
-
-        var csvRecord: CSVRecord = new CSVRecord();
-
-        csvRecord.firstName = data[0].trim();
-        csvRecord.lastName = data[1].trim();
-        csvRecord.email = data[2].trim();
-        csvRecord.phoneNumber = data[3].trim();
-        csvRecord.title = data[4].trim();
-        csvRecord.occupation = data[5].trim();
-
+        var  csvRecord= <ParticipantInterface>{};
+        for (let j = 0; j < size; j++) {
+          
+           csvRecord[displayedColumns[j]] = data[j].trim();
+   
+          
+        }
+        console.log(csvRecord);
         dataArr.push(csvRecord);
+
+        
       }
     }
     return dataArr;
   }
 
-  
+
   isCSVFile(file: any) {
     return file.name.endsWith(".csv");
   }
@@ -96,12 +100,12 @@ export class CsvComponent {
 
   storeData(){
     this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
-    for (let csvData of this.csvRecords) { 
-      
-    
+    for (let csvData of this.csvRecords) {
+
+
       var data = JSON.parse(JSON.stringify(csvData));
       this.firestore.collection('participantes').add(data);
-  
+
       this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
       this.router.navigate(['participantes']);
     }
@@ -109,22 +113,3 @@ export class CsvComponent {
 
 }
 
-
-interface Launch {
-  id: string;
-  date: Date;
-  value: number;
-}
-
-export class CSVRecord{
-
-  public firstName: any;
-  public lastName: any;
-  public email: any;
-  public phoneNumber: any;
-  public title: any;
-  public occupation: any;
-
-  constructor() { }
-
-}

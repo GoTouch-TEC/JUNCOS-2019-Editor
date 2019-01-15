@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
         this.onLoginRedirect();
         this.toastr.success('Inició sesión', 'Bienvenido');
       }).catch(err => {console.log('err', err.message); 
-        this.toastr.warning('Credenciales invalidos','Error');
+        this.toastr.error('Credenciales invalidos','Error');
         this.isInvalidUser = true;
         this.isInvalidPassword = true
       });
