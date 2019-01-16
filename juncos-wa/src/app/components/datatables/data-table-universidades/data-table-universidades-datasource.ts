@@ -3,8 +3,8 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { OnInit } from '@angular/core';
-import { GetCollections } from '../../services/getCollections.service'
-import { UniversidadInterface } from '../../interfaces/UniversidadInterface'
+import { GetCollections } from '../../../services/getCollections.service'
+import { UniversidadInterface } from '../../../interfaces/UniversidadInterface'
 
 const list: UniversidadInterface[]=[]
 

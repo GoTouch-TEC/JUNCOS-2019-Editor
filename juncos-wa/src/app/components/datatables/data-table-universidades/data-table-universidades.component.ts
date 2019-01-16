@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { DataTableUniversidadesDataSource } from './data-table-universidades-datasource'
-import { GetCollections } from '../../services/getCollections.service'
+import { GetCollections } from '../../../services/getCollections.service'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr'
-import {UniversidadInterface,storedColumns as sc,displayedColumns as dc} from '../../interfaces/UniversidadInterface'
+import {UniversidadInterface,storedColumns as sc,displayedColumns as dc} from '../../../interfaces/UniversidadInterface'
 
 @Component({
   selector: 'app-data-table-universidades',

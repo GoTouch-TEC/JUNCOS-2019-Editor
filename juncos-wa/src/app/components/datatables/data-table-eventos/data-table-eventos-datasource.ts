@@ -3,35 +3,34 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { OnInit } from '@angular/core';
-import { GetCollections } from '../../services/getCollections.service'
-import { LugarInterface } from '../../interfaces/LugarInterface'
+import { GetCollections } from '../../../services/getCollections.service'
+import { EventosInterface } from '../../../interfaces/EventoInterface'
 
-const list: LugarInterface[]=[]
+const list: EventosInterface[]=[]
 
 /**
  * Data source for the DataTableParticipantes view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class DataTableLugaresDataSource extends DataSource<LugarInterface> implements OnInit {
+export class DataTableEventosDataSource extends DataSource<EventosInterface> implements OnInit {
   
-  dataStream = new BehaviorSubject<LugarInterface[]>( list);
+  dataStream = new BehaviorSubject<EventosInterface[]>( list);
 
-  set data(v: LugarInterface[]) { this.dataStream.next(v); }
-  get data(): LugarInterface[] { return this.dataStream.value; }
+  set data(v: EventosInterface[]) { this.dataStream.next(v); }
+  get data(): EventosInterface[] { return this.dataStream.value; }
 
   constructor(private paginator: MatPaginator, private sort: MatSort, private service: GetCollections) {
     super();
     
-    this.service.getLugar().subscribe(actionArray => {
+    this.service.getEventos().subscribe(actionArray => {
       this.data= actionArray.map(item => {
         return {
-          address: item.payload.doc.id,
+          date: item.payload.doc.id,
           ...item.payload.doc.data()
-        } as LugarInterface;
+        } as EventosInterface;
       })
     });
-    
   }
  
     ngOnInit(){
@@ -43,7 +42,7 @@ export class DataTableLugaresDataSource extends DataSource<LugarInterface> imple
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<LugarInterface[]> {
+  connect(): Observable<EventosInterface[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     
@@ -73,7 +72,7 @@ export class DataTableLugaresDataSource extends DataSource<LugarInterface> imple
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: LugarInterface[]) {
+  private getPagedData(data: EventosInterface[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -82,7 +81,7 @@ export class DataTableLugaresDataSource extends DataSource<LugarInterface> imple
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: LugarInterface[]) {
+  private getSortedData(data: EventosInterface[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

@@ -3,34 +3,31 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { OnInit } from '@angular/core';
-import { GetCollections } from '../../services/getCollections.service'
-import { EventosInterface } from '../../interfaces/EventoInterface'
+import { GetCollections } from '../../../services/getCollections.service'
+import { MedalleroInterface } from '../../../interfaces/MedalleroInterface'
 
-const list: EventosInterface[]=[]
+const list: MedalleroInterface[]=[]
 
-/**
- * Data source for the DataTableParticipantes view. This class should
- * encapsulate all logic for fetching and manipulating the displayed data
- * (including sorting, pagination, and filtering).
- */
-export class DataTableEventosDataSource extends DataSource<EventosInterface> implements OnInit {
+
+export class DataTableMedalleroDataSource extends DataSource<MedalleroInterface> implements OnInit {
   
-  dataStream = new BehaviorSubject<EventosInterface[]>( list);
+  dataStream = new BehaviorSubject<MedalleroInterface[]>( list);
 
-  set data(v: EventosInterface[]) { this.dataStream.next(v); }
-  get data(): EventosInterface[] { return this.dataStream.value; }
+  set data(v: MedalleroInterface[]) { this.dataStream.next(v); }
+  get data(): MedalleroInterface[] { return this.dataStream.value; }
 
   constructor(private paginator: MatPaginator, private sort: MatSort, private service: GetCollections) {
     super();
     
-    this.service.getEventos().subscribe(actionArray => {
+    this.service.getMedallero().subscribe(actionArray => {
       this.data= actionArray.map(item => {
         return {
-          date: item.payload.doc.id,
+          nameUniversity: item.payload.doc.id,
           ...item.payload.doc.data()
-        } as EventosInterface;
+        } as MedalleroInterface;
       })
     });
+    
   }
  
     ngOnInit(){
@@ -42,7 +39,7 @@ export class DataTableEventosDataSource extends DataSource<EventosInterface> imp
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<EventosInterface[]> {
+  connect(): Observable<MedalleroInterface[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     
@@ -72,7 +69,7 @@ export class DataTableEventosDataSource extends DataSource<EventosInterface> imp
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: EventosInterface[]) {
+  private getPagedData(data: MedalleroInterface[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -81,7 +78,7 @@ export class DataTableEventosDataSource extends DataSource<EventosInterface> imp
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: EventosInterface[]) {
+  private getSortedData(data: MedalleroInterface[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

@@ -19,7 +19,6 @@ import {MatInputModule} from '@angular/material';
 import { AppRoutingModule , routingComponents} from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
-import { UserService } from './shared/user.service';
 import {FormsModule} from '@angular/forms'
 import 'hammerjs';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -28,17 +27,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { DataTableLugaresComponent } from './datatables/data-table-lugares/data-table-lugares.component';
-import { DataTableMedalleroComponent } from './datatables/data-table-medallero/data-table-medallero.component';
-import { DataTableParticipantesComponent, participantesDataTableDialog } from './datatables/data-table-participantes/data-table-participantes.component';
-import { DataTableUniversidadesComponent } from './datatables/data-table-universidades/data-table-universidades.component';
-import { DataTableEventosComponent } from './datatables/data-table-eventos/data-table-eventos.component';
+import { DataTableLugaresComponent } from './components/datatables/data-table-lugares/data-table-lugares.component';
+import { DataTableMedalleroComponent } from './components/datatables/data-table-medallero/data-table-medallero.component';
+import { DataTableParticipantesComponent, participantesDataTableDialog } from './components/datatables/data-table-participantes/data-table-participantes.component';
+import { DataTableUniversidadesComponent } from './components/datatables/data-table-universidades/data-table-universidades.component';
+import { DataTableEventosComponent } from './components/datatables/data-table-eventos/data-table-eventos.component';
 import { CommonModule } from "@angular/common"
-//FISH
-import { Page404Component } from './page404/page404.component';
+import { Page404Component } from './pages/page404/page404.component';
 import { LoginComponent } from './users/login/login.component';
-import { RegisterComponent } from './users/register/register.component';
-import { CsvComponent } from './csv/csv.component';
 import {CdkTableModule} from '@angular/cdk/table';
 import { CsvParticipantesComponent } from './csvComponents/csv-participantes/csv-participantes.component';
 import { CsvUniversidadesComponent } from './csvComponents/csv-universidades/csv-universidades.component';
@@ -59,8 +55,6 @@ import { participantesDialog } from './components/participantes/participantes.co
     DataTableEventosComponent,
     Page404Component,
     LoginComponent,
-    RegisterComponent,
-    CsvComponent,
     CsvParticipantesComponent,
     CsvUniversidadesComponent,
     CsvMedalleroComponent,

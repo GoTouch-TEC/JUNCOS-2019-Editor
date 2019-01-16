@@ -3,28 +3,34 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { OnInit } from '@angular/core';
-import { GetCollections } from '../../services/getCollections.service'
-import { MedalleroInterface } from '../../interfaces/MedalleroInterface'
-
-const list: MedalleroInterface[]=[]
+import { GetCollections } from '../../../services/getCollections.service'
+import { ParticipantInterface } from '../../../interfaces/ParticpantInterface'
 
 
-export class DataTableMedalleroDataSource extends DataSource<MedalleroInterface> implements OnInit {
+const list: ParticipantInterface[]=[]
+
+
+/**
+ * Data source for the DataTableParticipantes view. This class should
+ * encapsulate all logic for fetching and manipulating the displayed data
+ * (including sorting, pagination, and filtering).
+ */
+export class DataTableParticipantesDataSource extends DataSource<ParticipantInterface> implements OnInit {
   
-  dataStream = new BehaviorSubject<MedalleroInterface[]>( list);
+  dataStream = new BehaviorSubject<ParticipantInterface[]>( list);
 
-  set data(v: MedalleroInterface[]) { this.dataStream.next(v); }
-  get data(): MedalleroInterface[] { return this.dataStream.value; }
+  set data(v: ParticipantInterface[]) { this.dataStream.next(v); }
+  get data(): ParticipantInterface[] { return this.dataStream.value; }
 
   constructor(private paginator: MatPaginator, private sort: MatSort, private service: GetCollections) {
     super();
     
-    this.service.getMedallero().subscribe(actionArray => {
+    this.service.getParticipantes().subscribe(actionArray => {
       this.data= actionArray.map(item => {
         return {
-          nameUniversity: item.payload.doc.id,
+          email: item.payload.doc.id,
           ...item.payload.doc.data()
-        } as MedalleroInterface;
+        } as ParticipantInterface;
       })
     });
     
@@ -39,7 +45,7 @@ export class DataTableMedalleroDataSource extends DataSource<MedalleroInterface>
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<MedalleroInterface[]> {
+  connect(): Observable<ParticipantInterface[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     
@@ -69,7 +75,7 @@ export class DataTableMedalleroDataSource extends DataSource<MedalleroInterface>
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: MedalleroInterface[]) {
+  private getPagedData(data: ParticipantInterface[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -78,7 +84,7 @@ export class DataTableMedalleroDataSource extends DataSource<MedalleroInterface>
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: MedalleroInterface[]) {
+  private getSortedData(data: ParticipantInterface[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

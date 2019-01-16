@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild ,Inject} from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { DataTableParticipantesDataSource } from './data-table-participantes-datasource';
-import { GetCollections } from '../../services/getCollections.service'
+import { GetCollections } from '../../../services/getCollections.service'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr'
 
 import {MatDialogModule,MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {ParticipantInterface,storedColumns as sc,displayedColumns as dc} from '../../interfaces/ParticpantInterface'
+import {ParticipantInterface,storedColumns as sc,displayedColumns as dc} from '../../../interfaces/ParticpantInterface'
 
 @Component({
   selector: 'app-data-table-participantes',

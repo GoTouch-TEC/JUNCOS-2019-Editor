@@ -3,34 +3,32 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { OnInit } from '@angular/core';
-import { GetCollections } from '../../services/getCollections.service'
-import { ParticipantInterface } from '../../interfaces/ParticpantInterface'
+import { GetCollections } from '../../../services/getCollections.service'
+import { LugarInterface } from '../../../interfaces/LugarInterface'
 
-
-const list: ParticipantInterface[]=[]
-
+const list: LugarInterface[]=[]
 
 /**
  * Data source for the DataTableParticipantes view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class DataTableParticipantesDataSource extends DataSource<ParticipantInterface> implements OnInit {
+export class DataTableLugaresDataSource extends DataSource<LugarInterface> implements OnInit {
   
-  dataStream = new BehaviorSubject<ParticipantInterface[]>( list);
+  dataStream = new BehaviorSubject<LugarInterface[]>( list);
 
-  set data(v: ParticipantInterface[]) { this.dataStream.next(v); }
-  get data(): ParticipantInterface[] { return this.dataStream.value; }
+  set data(v: LugarInterface[]) { this.dataStream.next(v); }
+  get data(): LugarInterface[] { return this.dataStream.value; }
 
   constructor(private paginator: MatPaginator, private sort: MatSort, private service: GetCollections) {
     super();
     
-    this.service.getParticipantes().subscribe(actionArray => {
+    this.service.getLugar().subscribe(actionArray => {
       this.data= actionArray.map(item => {
         return {
-          email: item.payload.doc.id,
+          address: item.payload.doc.id,
           ...item.payload.doc.data()
-        } as ParticipantInterface;
+        } as LugarInterface;
       })
     });
     
@@ -45,7 +43,7 @@ export class DataTableParticipantesDataSource extends DataSource<ParticipantInte
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<ParticipantInterface[]> {
+  connect(): Observable<LugarInterface[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     
@@ -75,7 +73,7 @@ export class DataTableParticipantesDataSource extends DataSource<ParticipantInte
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: ParticipantInterface[]) {
+  private getPagedData(data: LugarInterface[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -84,7 +82,7 @@ export class DataTableParticipantesDataSource extends DataSource<ParticipantInte
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: ParticipantInterface[]) {
+  private getSortedData(data: LugarInterface[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

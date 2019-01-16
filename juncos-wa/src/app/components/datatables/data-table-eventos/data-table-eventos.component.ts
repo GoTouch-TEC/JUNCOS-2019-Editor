@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { DataTableEventosDataSource } from './data-table-eventos-datasource';
-import { GetCollections } from '../../services/getCollections.service'
+import { GetCollections } from '../../../services/getCollections.service'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr'
-import {EventosInterface,storedColumns as sc,displayedColumns as dc} from '../../interfaces/EventoInterface'
+import {EventosInterface,storedColumns as sc,displayedColumns as dc} from '../../../interfaces/EventoInterface'
 
 @Component({
   selector: 'app-data-table-eventos',

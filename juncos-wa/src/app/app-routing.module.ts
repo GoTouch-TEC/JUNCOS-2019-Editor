@@ -7,11 +7,9 @@ import { MedalleroComponent } from './components/medallero/medallero.component';
 import { LoginComponent } from './users/login/login.component';
 import { UniversidadesComponent } from './components/universidades/universidades.component';
 import { LugaresComponent } from './components/lugares/lugares.component';
-import { Page404Component } from './page404/page404.component';
-import { RegisterComponent } from './users/register/register.component';
-import { AuthGuard } from './guards/auth.guard';
+import { Page404Component } from './pages/./page404/page404.component';
+// import { AuthGuard } from './guards/auth.guard';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { CsvComponent } from './csv/csv.component';
 import { CsvEventosComponent } from './csvComponents/csv-eventos/csv-eventos.component';
 import { CsvLugaresComponent } from './csvComponents/csv-lugares/csv-lugares.component';
 import { CsvMedalleroComponent } from './csvComponents/csv-medallero/csv-medallero.component';
@@ -28,8 +26,6 @@ const routes: Routes = [
   { path: 'medallero', component: MedalleroComponent},
   { path: 'lugares', component: LugaresComponent},
   { path: 'user/login', component: LoginComponent },
-  { path: 'user/register', component: RegisterComponent },
-  { path: 'readCSV', component: CsvComponent },
   { path: 'readCSV/eventos', component: CsvEventosComponent },
   { path: 'readCSV/lugares', component: CsvLugaresComponent },
   { path: 'readCSV/medallero', component: CsvMedalleroComponent },
