@@ -15,5 +15,5 @@ export interface ParticipantInterface {
   }
 // storedColumns contiene los nombres o id's del interface para traer los datos de cada objeto dinamicamente
 // displayedColumns contiene los nombres que van a ser mostrados en los headers de las columnas en la tabla
-export var storedColumns = ['firstName', 'lastName','identification','studentCard','birthDate','email'];
-export var displayedColumns = ['Nombre', 'Apellidos','Identificación','Carnet Estudiante','Fecha Nacimiento','Email'];
+export var storedColumns:string[] = ['firstName', 'lastName','identification','studentCard','birthDate','email'];
+export var displayedColumns:string[] = ["Nombre", "Apellidos","Identificación","Carnet Estudiante","Fecha Nacimiento","Email"];

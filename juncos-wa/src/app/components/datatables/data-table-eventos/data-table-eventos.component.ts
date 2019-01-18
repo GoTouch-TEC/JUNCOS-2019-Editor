@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { DataTableEventosDataSource } from './data-table-eventos-datasource';
 import { GetCollections } from '../../../services/getCollections.service'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr'
 import {EventosInterface,storedColumns as sc,displayedColumns as dc} from '../../../interfaces/EventoInterface'
+import { dialogForm } from '../../dialogs/dialogForm';
 
 @Component({
   selector: 'app-data-table-eventos',
@@ -20,7 +21,7 @@ export class DataTableEventosComponent implements OnInit {
 
   constructor(private service: GetCollections,
     private firestore: AngularFirestore,
-    private toastr:ToastrService) { }
+    private toastr:ToastrService,public dialog: MatDialog) { }
 
 
   // storedColumns contiene los nombres o id's del interface para traer los datos de cada objeto dinamicamente
@@ -29,6 +30,25 @@ export class DataTableEventosComponent implements OnInit {
   storedColumns = sc;
   ngOnInit() {
     this.dataSource = new DataTableEventosDataSource(this.paginator, this.sort, this.service);
+  }
+
+  list:string[];
+
+  
+  openDialog(): void {
+    const dialogRef = this.dialog.open(dialogForm, {
+      width: '400px',
+      height: '70%',
+      data: {displayedColumns: this.displayedColumns,storedColumns: this.storedColumns}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result)
+      this.list = result;
+      //hay que agarrar list, validar los datos e insertarlos a la base de datos
+    });
+
   }
 }
 

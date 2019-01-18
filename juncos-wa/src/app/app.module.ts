@@ -19,7 +19,7 @@ import {MatInputModule} from '@angular/material';
 import { AppRoutingModule , routingComponents} from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
-import {FormsModule} from '@angular/forms'
+import {FormsModule,ReactiveFormsModule} from '@angular/forms'
 import 'hammerjs';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MainNavComponent } from './main-nav/main-nav.component';
@@ -29,7 +29,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { DataTableLugaresComponent } from './components/datatables/data-table-lugares/data-table-lugares.component';
 import { DataTableMedalleroComponent } from './components/datatables/data-table-medallero/data-table-medallero.component';
-import { DataTableParticipantesComponent, participantesDataTableDialog } from './components/datatables/data-table-participantes/data-table-participantes.component';
+import { DataTableParticipantesComponent } from './components/datatables/data-table-participantes/data-table-participantes.component';
 import { DataTableUniversidadesComponent } from './components/datatables/data-table-universidades/data-table-universidades.component';
 import { DataTableEventosComponent } from './components/datatables/data-table-eventos/data-table-eventos.component';
 import { CommonModule } from "@angular/common"
@@ -42,7 +42,7 @@ import { CsvMedalleroComponent } from './csvComponents/csv-medallero/csv-medalle
 import { CsvLugaresComponent } from './csvComponents/csv-lugares/csv-lugares.component';
 import { CsvEventosComponent } from './csvComponents/csv-eventos/csv-eventos.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { participantesDialog } from './components/participantes/participantes.component';
+import { dialogForm } from './components/dialogs/dialogForm';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,10 +60,10 @@ import { participantesDialog } from './components/participantes/participantes.co
     CsvMedalleroComponent,
     CsvLugaresComponent,
     CsvEventosComponent,
-    participantesDialog,
-    participantesDataTableDialog
+    dialogForm
   ],
   imports: [
+    ReactiveFormsModule,
     MatDialogModule,
     CdkTableModule,
     BrowserModule,
@@ -94,7 +94,7 @@ import { participantesDialog } from './components/participantes/participantes.co
     AngularFireDatabaseModule,
     AngularFireStorageModule,
   ],
-  entryComponents: [ participantesDialog,participantesDataTableDialog],
+  entryComponents: [ dialogForm],
   providers: [AngularFireAuth, AngularFirestore],
   bootstrap: [AppComponent]
 })

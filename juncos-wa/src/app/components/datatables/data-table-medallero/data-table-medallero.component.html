@@ -3,7 +3,7 @@
           <ng-container [matColumnDef]="column" *ngFor="let column of storedColumns;let i = index;" >
               <td>{{i+1}}</td>
               <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedColumns[i]}} </th>
-              <td mat-cell *matCellDef="let element" (click)="onEdit(element)">  {{element[column]}} </td>
+              <td mat-cell *matCellDef="let element" (click)="openDialog()">  {{element[column]}} </td>
               
           </ng-container>
   

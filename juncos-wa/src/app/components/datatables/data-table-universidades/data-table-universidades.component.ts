@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { DataTableUniversidadesDataSource } from './data-table-universidades-datasource'
 import { GetCollections } from '../../../services/getCollections.service'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr'
 import {UniversidadInterface,storedColumns as sc,displayedColumns as dc} from '../../../interfaces/UniversidadInterface'
+import { dialogForm } from '../../dialogs/dialogForm';
 
 @Component({
   selector: 'app-data-table-universidades',
@@ -20,7 +21,8 @@ export class DataTableUniversidadesComponent implements OnInit {
 
   constructor(private service: GetCollections,
     private firestore: AngularFirestore,
-    private toastr:ToastrService) { }
+    private toastr:ToastrService,
+    public dialog: MatDialog) { }
 
   // storedColumns contiene los nombres o id's del interface para traer los datos de cada objeto dinamicamente
   // displayedColumns contiene los nombres que van a ser mostrados en los headers de las columnas en la tabla
@@ -33,16 +35,25 @@ export class DataTableUniversidadesComponent implements OnInit {
   
   }
 
-  // onEdit(admin: UniversidadInterface) {
-  //   this.service.formDataEventos = Object.assign({}, admin);
-  // }
+ 
+  list:string[];
 
-  // onDelete(id: string) {
-  //   if (confirm("Esta seguro que desea eliminar este usuario?")) {
-  //     this.firestore.doc('users/' + id).delete();
-  //     this.toastr.warning('Usuario eliminado exitosamente','Registro Admin');
-  //   }
-  // }
+  
+  openDialog(): void {
+    const dialogRef = this.dialog.open(dialogForm, {
+      width: '400px',
+      height: '70%',
+      data: {displayedColumns: this.displayedColumns,storedColumns: this.storedColumns}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result)
+      this.list = result;
+      //hay que agarrar list, validar los datos e insertarlos a la base de datos
+    });
+
+  }
 
 }
 
