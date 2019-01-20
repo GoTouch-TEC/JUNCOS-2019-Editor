@@ -124,8 +124,8 @@ export class CsvUniversidadesComponent {
     
     this.identificadores = new Array();
     //console.log("Tomando informacion en base");
-    var citiesRef = this.firestore.collection('universidades');
-    var allCities = citiesRef.get().subscribe(snapshot => {
+    var ids = this.firestore.collection('universidades');
+    var allIds = ids.get().subscribe(snapshot => {
       snapshot.forEach(doc => {
         var x = doc.data();
         this.identificadores.push(x.identification);
@@ -144,6 +144,7 @@ export class CsvUniversidadesComponent {
           bool=1;
         }
         else{
+          this.identificadores.push(data.identification)
           this.firestore.collection('universidades').add(data);
         }
         

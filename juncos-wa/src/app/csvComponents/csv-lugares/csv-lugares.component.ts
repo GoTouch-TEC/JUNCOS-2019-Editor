@@ -126,8 +126,8 @@ export class CsvLugaresComponent {
     
     this.identificadores = new Array();
     console.log("Tomando informacion en base");
-    var citiesRef = this.firestore.collection('lugares');
-    var allCities = citiesRef.get().subscribe(snapshot => {
+    var ids = this.firestore.collection('lugares');
+    var allIds = ids.get().subscribe(snapshot => {
       snapshot.forEach(doc => {
         var x = doc.data();
         this.identificadores.push(x.placeName);
@@ -146,6 +146,7 @@ export class CsvLugaresComponent {
           bool=1;
         }
         else{
+          this.identificadores.push(data.placeName)
           this.firestore.collection('lugares').add(data);
         }
         
