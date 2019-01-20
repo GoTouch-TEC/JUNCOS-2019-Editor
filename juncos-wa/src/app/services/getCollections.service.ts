@@ -49,5 +49,35 @@ export class GetCollections {
     return this.firestore.collection('universidades').snapshotChanges();
   
   }
+
+  getParticipantesMod(){
+   
+    return this.firestore.collection('participantes');
+  
+  }
+
+  getEventosMod(){
+   
+    return this.firestore.collection('eventos');
+  
+  }
+
+  getLugarMod(){
+   
+    return this.firestore.collection('lugares');
+  
+  }
+
+  getMedalleroMod(){
+   
+    return this.firestore.collection('medallero');
+  
+  }
+
+  getUniverisdadesMod(){
+   
+    return this.firestore.collection('universidades');
+  
+  }
   
 }
