@@ -16,8 +16,11 @@ const list: EventosInterface[]=[]
   templateUrl: './csv-eventos.component.html',
   styleUrls: ['./csv-eventos.component.css']
 })
-export class CsvEventosComponent {
 
+
+
+export class CsvEventosComponent {
+  private identificadores= []; 
   title = 'app';
   public csvRecords: EventosInterface[] = [];
   
@@ -69,7 +72,7 @@ export class CsvEventosComponent {
 
     let size = this.storedColumns.length;
    
-    for (let i = 1; i < (csvRecordsArray.length-1); i++) { // rows
+    for (let i = 1; i < (csvRecordsArray.length); i++) { // rows
       let data = csvRecordsArray[i].split(',');
 
       if (data.length == size) {
@@ -88,18 +91,14 @@ export class CsvEventosComponent {
         
       }
       else{
-        console.log("ROW");
-        console.log(i);
-        console.log("data length");
-        console.log(data.length);
-        console.log("size");
-        console.log(size);
+      
         this.toastr.error("Accion fallida", "No fue posible cargar CSV - cantidad columnas menor");
         return [];
     
       }
     
     }
+  
     this.toastr.success("Accion Exitosa", "Cargado Correctamente");
   
     return dataArr;
@@ -127,18 +126,56 @@ export class CsvEventosComponent {
 
 
   storeData(){
-    this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
-    for (let csvData of this.csvRecords) {
+    
+    this.identificadores = new Array();
+    //console.log("Tomando informacion en base");
+    var ids = this.firestore.collection('eventos');
+    var allIds = ids.get().subscribe(snapshot => {
+      snapshot.forEach(doc => {
+        var x = doc.data();
+        this.identificadores.push(x.identification);
+       
+       // console.log("ID:" + this.identificadores.length)
+        //console.log('=>',x.identification);
+      });
+      var bool =0;
+      var information ="";
+      console.log("Informacion aux size:" + this.identificadores.length);
+      for (let csvData of this.csvRecords) {
+        var data = JSON.parse(JSON.stringify(csvData));
+        
+        if(this.identificadores.find(x => x === data.identification) ){
+         // console.log("Elemento ya existente en base de datos:" + data.identification );
+     
+          information+=("\n Titulo de Evento:"+ data.title +"  Identificador: "+data.identification + " Fecha: "+data.date +" Hora:"+ data.time);
+          bool=1;
+        }
+        else{
+          this.identificadores.push(data.identification)
+          this.firestore.collection('eventos').add(data);
+        }
+        
+        this.router.navigate(['eventos']);
+      }
+      if(bool == 0){
+        this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
+      }
+      else{
+        this.toastr.warning('Archivo cargado, sin embargo, los registros repetidos no fueron almacenados', 'Continuar');
+        this.saveTxtFile(information,"Registros_Repetidos.txt");
 
-
-      var data = JSON.parse(JSON.stringify(csvData));
-      this.firestore.collection('eventos').add(data);
-
+      }
       
-      this.router.navigate(['eventos']);
-    }
-    this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
+    })
+    
   }
+
+  private saveTxtFile(buffer: any, fileName: string): void {
+    const blob = new Blob([buffer], { type: 'application/octet-stream' });
+    //FileSaver.saveAs(data, fileName + '_export_' + new  Date().getTime() + EXCEL_EXTENSION);
+    saveAs(blob, fileName);
+    
+ }
 
   
  

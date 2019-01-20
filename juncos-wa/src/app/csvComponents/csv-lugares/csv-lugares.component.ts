@@ -17,7 +17,7 @@ const list: LugarInterface[]=[]
   styleUrls: ['./csv-lugares.component.css']
 })
 export class CsvLugaresComponent {
-
+  private identificadores= []; 
   title = 'app';
   public csvRecords: LugarInterface[] = [];
   
@@ -69,7 +69,7 @@ export class CsvLugaresComponent {
 
     let size = this.storedColumns.length;
    
-    for (let i = 1; i < (csvRecordsArray.length-1); i++) { // rows
+    for (let i = 1; i < (csvRecordsArray.length); i++) { // rows
       let data = csvRecordsArray[i].split(',');
 
       if (data.length == size) {
@@ -88,12 +88,8 @@ export class CsvLugaresComponent {
         
       }
       else{
-        console.log("ROW");
-        console.log(i);
-        console.log("data length");
-        console.log(data.length);
-        console.log("size");
-        console.log(size);
+        console.log("data length" + data.length);
+        console.log("size: "+ size);
         this.toastr.error("Accion fallida", "No fue posible cargar CSV - cantidad columnas menor");
         return [];
     
@@ -127,18 +123,54 @@ export class CsvLugaresComponent {
 
 
   storeData(){
-    this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
-    for (let csvData of this.csvRecords) {
+    
+    this.identificadores = new Array();
+    console.log("Tomando informacion en base");
+    var ids = this.firestore.collection('lugares');
+    var allIds = ids.get().subscribe(snapshot => {
+      snapshot.forEach(doc => {
+        var x = doc.data();
+        this.identificadores.push(x.placeName);
+       // console.log("ID:" + this.identificadores.length)
+        //console.log('=>',x.identification);
+      });
+      var bool =0;
+      var information ="";
+      console.log("Informacion aux size:" + this.identificadores.length);
+      for (let csvData of this.csvRecords) {
+        var data = JSON.parse(JSON.stringify(csvData));
+        
+        if(this.identificadores.find(x => x === data.placeName) ){
+          console.log("Elemento ya existente en base de datos:" + data.placeName );
+          information+=("\n Nombre del lugar:"+ data.placeName);
+          bool=1;
+        }
+        else{
+          this.identificadores.push(data.placeName)
+          this.firestore.collection('lugares').add(data);
+        }
+        
+        this.router.navigate(['lugares']);
+      }
+      if(bool == 0){
+        this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
+      }
+      else{
+        this.toastr.warning('Archivo cargado, sin embargo, los registros repetidos no fueron almacenados', 'Continuar');
+        this.saveTxtFile(information,"Registros_Repetidos.txt");
 
-
-      var data = JSON.parse(JSON.stringify(csvData));
-      this.firestore.collection('lugares').add(data);
-
+      }
       
-      this.router.navigate(['lugares']);
-    }
-    this.toastr.success('Se guardaron los archivos correctamente', 'Aceptar');
+    })
+    
   }
+
+  private saveTxtFile(buffer: any, fileName: string): void {
+    const blob = new Blob([buffer], { type: 'application/octet-stream' });
+    //FileSaver.saveAs(data, fileName + '_export_' + new  Date().getTime() + EXCEL_EXTENSION);
+    saveAs(blob, fileName);
+    
+ }
 
   
  
