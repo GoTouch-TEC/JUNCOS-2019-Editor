@@ -1,6 +1,7 @@
 import {MatDialogModule,MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormGroup, FormArray, FormBuilder, FormControl, AbstractControl } from '@angular/forms';
 import { Component, Inject } from '@angular/core';
+import { isUndefined } from 'util';
 
 @Component({
     selector: 'template-dialog',
@@ -15,13 +16,22 @@ export class dialogForm {
     bool:Boolean=true;
     orders = [];
     private inputVar: string;
-
+    private undefinedValue: Boolean = false;
 
     constructor(public dialogRef: MatDialogRef<dialogForm>,@Inject(MAT_DIALOG_DATA) public data, 
     private formBuilder: FormBuilder) {
-        this.inputVar = ""
+
+        this.inputVar = "";
+        console.log(this.data.objeto)
+        
+        if(this.data.objeto == null){
+          this.data.objeto = {}
+          this.undefinedValue = true;
+ 
+        }
+
         for (let index = 0; index < this.data.displayedColumns.length; index++) {
-          this.orders.push({id:index,name: this.data.displayedColumns[index]});
+          this.orders.push({id:index,name: this.data.displayedColumns[index], valor: this.data.objeto[this.data.storedColumns[index]]});
         }
     
     
