@@ -131,7 +131,7 @@ export class CsvMedalleroComponent {
     var allIds = ids.get().subscribe(snapshot => {
       snapshot.forEach(doc => {
         var x = doc.data();
-        this.identificadores.push(x[this.storedColumns[2]]);
+        this.identificadores.push(x[this.storedColumns[0]]);
        // console.log("ID:" + this.identificadores.length)
         //console.log('=>',x.identification);
       });
@@ -141,13 +141,13 @@ export class CsvMedalleroComponent {
       for (let csvData of this.csvRecords) {
         var data = JSON.parse(JSON.stringify(csvData));
         
-        if(this.identificadores.find(x => x === data[this.storedColumns[2]]) ){
+        if(this.identificadores.find(x => x === data[this.storedColumns[0]]) ){
          // console.log("Elemento ya existente en base de datos:" + data.identification );
-          information+=("\n Nombre de Universidad:"+ data[this.storedColumns[0]] +"  Identificador: "+data[this.storedColumns[2]] + "  Medallas: "+ data[this.storedColumns[1]]);
+          information+=("\n Nombre de Universidad:"+ data[this.storedColumns[1]] +"  Identificador: "+data[this.storedColumns[0]] + "  Medallas: "+ data[this.storedColumns[2]]);
           bool=1;
         }
         else{
-          this.identificadores.push(data[this.storedColumns[2]])
+          this.identificadores.push(data[this.storedColumns[0]])
           this.firestore.collection('medallero').add(data);
         }
         
