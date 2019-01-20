@@ -3,13 +3,22 @@
     <form [formGroup]="form" >
         <label formArrayName="orders" *ngFor="let order of form.controls.orders.controls; let i = index">
             <mat-form-field>
-                <input matInput type="text" [formControlName]="i" [placeholder]="orders[i].name" >
+                <div *ngIf="!undefinedValue; else sinTexto">
+                    <input matInput type="text" [formControlName]="i" [placeholder]="orders[i].name" [value]="orders[i].valor">
+                </div>
+                          
+                <ng-template #sinTexto>
+                    <input matInput type="text" [formControlName]="i" [placeholder]="orders[i].name" >
+                </ng-template>
+                
+                
             </mat-form-field>
         </label>
         <h1 mat-dialog-title color="accent">{{inputVar}}</h1>
     </form>
 </div>
+
 <div mat-dialog-actions>
-  <button mat-button (click)="submit()"  cdkFocusInitial>Agregar</button>
+  <button mat-button (click)="submit()"  cdkFocusInitial>Aceptar</button>
 </div> 
   
