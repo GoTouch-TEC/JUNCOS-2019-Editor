@@ -134,7 +134,7 @@ export class CsvEventosComponent {
       snapshot.forEach(doc => {
         var x = doc.data();
         this.identificadores.push(x.identification);
-       ;
+       
        // console.log("ID:" + this.identificadores.length)
         //console.log('=>',x.identification);
       });
