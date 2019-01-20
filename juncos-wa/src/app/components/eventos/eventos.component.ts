@@ -20,10 +20,7 @@ export class EventosComponent {
   private identificadores= []; 
   list:string[];
 
-  constructor(private service :GetCollections, public dialog: MatDialog, private router: Router,private firestore: AngularFirestore ,private toastr: ToastrService) {
-  }
-  constructor(public dialog: MatDialog,
-    private mNC: MainNavComponent) { }
+  constructor(private service :GetCollections, public dialog: MatDialog, private router: Router,private firestore: AngularFirestore ,private toastr: ToastrService, private mNC: MainNavComponent) { }
   
     public isLogged: boolean = this.mNC.isLogged;
 
