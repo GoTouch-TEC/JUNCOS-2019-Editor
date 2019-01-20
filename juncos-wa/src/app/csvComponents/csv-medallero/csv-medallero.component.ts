@@ -127,7 +127,7 @@ export class CsvMedalleroComponent {
     
     this.identificadores = new Array();
     //console.log("Tomando informacion en base");
-    var ids = this.firestore.collection('medallero');
+    var ids = this.service.getMedalleroMod();
     var allIds = ids.get().subscribe(snapshot => {
       snapshot.forEach(doc => {
         var x = doc.data();

@@ -124,7 +124,7 @@ export class CsvUniversidadesComponent {
     
     this.identificadores = new Array();
     //console.log("Tomando informacion en base");
-    var ids = this.firestore.collection('universidades');
+    var ids = this.service.getUniverisdadesMod();
     var allIds = ids.get().subscribe(snapshot => {
       snapshot.forEach(doc => {
         var x = doc.data();
