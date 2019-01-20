@@ -56,9 +56,10 @@ export class dialogForm {
       
       for (let index = 0; index < this.data.displayedColumns.length; index++) {
         this.item = this.form.controls.orders.get(String(index)).value;
+        console.log(this.item)
         
         if(this.item != null){
-          console.log(this.item);
+          //console.log(this.item);
           this.list.push(this.item);
         }
         else{
@@ -72,6 +73,7 @@ export class dialogForm {
         this.dialogRef.close(this.list);
       }
       else{
+        
         this.inputVar = "Error";
       }
     }

@@ -4,14 +4,13 @@
         <label formArrayName="orders" *ngFor="let order of form.controls.orders.controls; let i = index">
             <mat-form-field>
                 <div *ngIf="!undefinedValue; else sinTexto">
-                    <input matInput type="text" [formControlName]="i" [placeholder]="orders[i].name" [value]="orders[i].valor">
+                    <input matInput type="text" [formControlName]="i" [placeholder]="orders[i].name" [value]="orders[i].valor"  required>
                 </div>
                           
                 <ng-template #sinTexto>
-                    <input matInput type="text" [formControlName]="i" [placeholder]="orders[i].name" >
+                    <input matInput type="text" [formControlName]="i" [placeholder]="orders[i].name" [value]="" required>
                 </ng-template>
-                
-                
+           
             </mat-form-field>
         </label>
         <h1 mat-dialog-title color="accent">{{inputVar}}</h1>

@@ -48,6 +48,5 @@ export class DataTableLugaresComponent implements OnInit {
       this.list = result;
       //hay que agarrar list, validar los datos e insertarlos a la base de datos
     });
-
   }
 }

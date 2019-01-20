@@ -4,6 +4,7 @@
               <td>{{i+1}}</td>
               <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedColumns[i]}} </th>
               <td mat-cell *matCellDef="let element" >  {{element[column]}} </td>
+              <button (click)="delete(row)">Delete</button>
               
           </ng-container>
   
