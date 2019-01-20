@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { GetCollections } from '../../services/getCollections.service';
+import {MainNavComponent} from '../../main-nav/main-nav.component'
+
 @Component({
   selector: 'app-eventos',
   templateUrl: './eventos.component.html',
@@ -20,6 +22,11 @@ export class EventosComponent {
 
   constructor(private service :GetCollections, public dialog: MatDialog, private router: Router,private firestore: AngularFirestore ,private toastr: ToastrService) {
   }
+  constructor(public dialog: MatDialog,
+    private mNC: MainNavComponent) { }
+  
+    public isLogged: boolean = this.mNC.isLogged;
+
   openDialog(): void {
     const dialogRef = this.dialog.open(dialogForm, {
       width: '400px',
