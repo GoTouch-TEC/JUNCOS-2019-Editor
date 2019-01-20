@@ -9,7 +9,12 @@
     width: 20%
 }
 
-.btn_color{
-    background-color: gray;
+.btn_agregar_color{
+    background-color: rgb(38, 77, 185);
+    color: #fff;
+}
+
+.btn_importar_color{
+    background-color: rgb(165, 125, 134);
     color: #fff;
 }

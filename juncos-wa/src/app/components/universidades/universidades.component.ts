@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {displayedColumns as dc,storedColumns as sc} from '../../interfaces/UniversidadInterface'
+import {UniversidadInterface,displayedColumns as dc,storedColumns as sc} from '../../interfaces/UniversidadInterface'
 import{dialogForm} from '../dialogs/dialogForm'
 @Component({
   selector: 'app-universidades',
@@ -25,10 +25,15 @@ export class UniversidadesComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      console.log(result)
+      //console.log(result)
       this.list = result;
+
+      this.storeData();
       //hay que agarrar list, validar los datos e insertarlos a la base de datos
     });
 
+  }
+  storeData(){
+    
   }
 }
