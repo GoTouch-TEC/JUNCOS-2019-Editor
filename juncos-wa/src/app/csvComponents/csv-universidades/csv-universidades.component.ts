@@ -128,7 +128,7 @@ export class CsvUniversidadesComponent {
     var allIds = ids.get().subscribe(snapshot => {
       snapshot.forEach(doc => {
         var x = doc.data();
-        this.identificadores.push(x.identification);
+        this.identificadores.push(x[this.storedColumns[1]]);
        // console.log("ID:" + this.identificadores.length)
         //console.log('=>',x.identification);
       });
@@ -138,13 +138,13 @@ export class CsvUniversidadesComponent {
       for (let csvData of this.csvRecords) {
         var data = JSON.parse(JSON.stringify(csvData));
         
-        if(this.identificadores.find(x => x === data.identification) ){
+        if(this.identificadores.find(x => x === data[this.storedColumns[1]]) ){
          // console.log("Elemento ya existente en base de datos:" + data.identification );
-          information+=("\n Nombre de Universidad:"+ data.nameUniversity +"  Identificador: "+data.identification);
+          information+=("\n Nombre de Universidad:"+ data[this.storedColumns[0]] +"  Identificador: "+data[this.storedColumns[1]]);
           bool=1;
         }
         else{
-          this.identificadores.push(data.identification)
+          this.identificadores.push(data[this.storedColumns[1]])
           this.firestore.collection('universidades').add(data);
         }
         

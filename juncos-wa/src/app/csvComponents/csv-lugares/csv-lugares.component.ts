@@ -130,7 +130,7 @@ export class CsvLugaresComponent {
     var allIds = ids.get().subscribe(snapshot => {
       snapshot.forEach(doc => {
         var x = doc.data();
-        this.identificadores.push(x.placeName);
+        this.identificadores.push(x[this.storedColumns[0]]);
        // console.log("ID:" + this.identificadores.length)
         //console.log('=>',x.identification);
       });
@@ -140,13 +140,13 @@ export class CsvLugaresComponent {
       for (let csvData of this.csvRecords) {
         var data = JSON.parse(JSON.stringify(csvData));
         
-        if(this.identificadores.find(x => x === data.placeName) ){
-          console.log("Elemento ya existente en base de datos:" + data.placeName );
-          information+=("\n Nombre del lugar:"+ data.placeName);
+        if(this.identificadores.find(x => x === data[this.storedColumns[0]]) ){
+          console.log("Elemento ya existente en base de datos:" + data[this.storedColumns[0]] );
+          information+=("\n Nombre del lugar:"+ data[this.storedColumns[0]]);
           bool=1;
         }
         else{
-          this.identificadores.push(data.placeName)
+          this.identificadores.push(data[this.storedColumns[0]])
           this.firestore.collection('lugares').add(data);
         }
         
