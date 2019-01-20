@@ -126,7 +126,7 @@ export class CsvParticipantesComponent {
     
     this.identificadores = new Array();
     console.log("Tomando informacion en base");
-    var ids = this.firestore.collection('participantes');
+    var ids = this.service.getParticipantesMod();
     var allIds = ids.get().subscribe(snapshot => {
       snapshot.forEach(doc => {
         var x = doc.data();
@@ -158,11 +158,8 @@ export class CsvParticipantesComponent {
       else{
         this.toastr.warning('Archivo cargado, sin embargo, los registros repetidos no fueron almacenados', 'Continuar');
         this.saveTxtFile(information,"Registros_Repetidos.txt");
-
       }
-      
     })
-    
   }
 
   private saveTxtFile(buffer: any, fileName: string): void {

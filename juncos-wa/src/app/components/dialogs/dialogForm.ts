@@ -64,13 +64,6 @@ export class dialogForm {
       else{
         this.inputVar = "Error";
       }
-      
-  
-      // const selectedOrderIds = this.form.value.orders
-      //   .map((v, i) => v ? this.orders[i].id : null)
-      //   .filter(v => v !== null);
-  
-      //console.log(selectedOrderIds);
     }
   
   }

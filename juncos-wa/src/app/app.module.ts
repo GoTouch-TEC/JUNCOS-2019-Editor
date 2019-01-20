@@ -43,6 +43,7 @@ import { CsvLugaresComponent } from './csvComponents/csv-lugares/csv-lugares.com
 import { CsvEventosComponent } from './csvComponents/csv-eventos/csv-eventos.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { dialogForm } from './components/dialogs/dialogForm';
+import { UserManualComponent } from './pages/user-manual/user-manual.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +61,8 @@ import { dialogForm } from './components/dialogs/dialogForm';
     CsvMedalleroComponent,
     CsvLugaresComponent,
     CsvEventosComponent,
-    dialogForm
+    dialogForm,
+    UserManualComponent
   ],
   imports: [
     ReactiveFormsModule,
