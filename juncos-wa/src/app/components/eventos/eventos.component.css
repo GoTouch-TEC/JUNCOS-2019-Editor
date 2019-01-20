@@ -3,7 +3,6 @@
     margin: 20px auto;
 }
 
-
 .btn{
     margin-right: 10px;
     width: 20%
@@ -15,6 +14,6 @@
 }
 
 .btn_importar_color{
-    background-color: rgb(165, 125, 134);
+    background-color: rgb(100, 100, 100);
     color: #fff;
 }

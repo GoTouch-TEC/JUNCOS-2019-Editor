@@ -138,6 +138,7 @@ export class CsvParticipantesComponent {
       var information ="";
       console.log("Informacion aux size:" + this.identificadores.length);
       for (let csvData of this.csvRecords) {
+        
         var data = JSON.parse(JSON.stringify(csvData));
         
         if(this.identificadores.find(x => x === data[this.storedColumns[0]]) ){
