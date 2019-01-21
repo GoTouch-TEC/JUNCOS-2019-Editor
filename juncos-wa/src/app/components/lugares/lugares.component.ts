@@ -27,7 +27,7 @@ export class LugaresComponent{
     const dialogRef = this.dialog.open(dialogForm, {
       width: '400px',
       height: '70%',
-      data: {displayedColumns: this.displayedColumns,storedColumns: this.storedColumns}
+      data: {displayedColumns: this.displayedColumns,storedColumns: this.storedColumns,add :true}
     });
 
     dialogRef.afterClosed().subscribe(result => {

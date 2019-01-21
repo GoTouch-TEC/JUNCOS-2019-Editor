@@ -3,15 +3,13 @@ import { FormGroup, FormArray, FormBuilder, FormControl, AbstractControl } from 
 import { Component, Inject } from '@angular/core';
 import { isUndefined } from 'util';
 import { storedColumns } from 'src/app/interfaces/EventoInterface';
-import { ToastrService } from 'ngx-toastr';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
     selector: 'template-dialog',
     templateUrl: './templateDialog.html',
     styleUrls: ['./dialogForm.css']
 })
-export class dialogForm {
+export class dialogFormCsv {
 
     form: FormGroup;
     item:string;
@@ -23,9 +21,7 @@ export class dialogForm {
     private undefinedValue: Boolean = false;
     private onEditBool: Boolean = false;
     private isItOnAdd:Boolean = false;
-
-    constructor(private firestore: AngularFirestore,
-    private toastr:ToastrService,public dialogRef: MatDialogRef<dialogForm>,@Inject(MAT_DIALOG_DATA) public data, 
+    constructor(public dialogRef: MatDialogRef<dialogFormCsv>,@Inject(MAT_DIALOG_DATA) public data, 
     private formBuilder: FormBuilder) {
 
         this.inputVar = "";
@@ -64,11 +60,8 @@ export class dialogForm {
       this.onEditBool = true;
     }
 
-    onClickDelete(id:any){
-      if (confirm("Esta seguro que desea eliminar este usuario?")) {
-        this.firestore.doc('users/' + id).delete();
-        this.toastr.warning('Usuario eliminado exitosamente','Registro Admin');
-      }
+    onClickDelete(){
+      //eliminar
     }
     
     submit() {
