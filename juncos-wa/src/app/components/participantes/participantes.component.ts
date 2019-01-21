@@ -29,7 +29,7 @@ export class ParticipantesComponent {
     const dialogRef = this.dialog.open(dialogForm, {
       width: '400px',
       height: '70%',
-      data: {displayedColumns: this.displayedColumns,storedColumns: this.storedColumns,add :true}
+      data: {displayedColumns: this.displayedColumns,storedColumns: this.storedColumns}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -52,7 +52,7 @@ export class ParticipantesComponent {
         }
         else if(this.identificadores.find(x => x === this.list[0]) ){
           console.log("Elemento repetido"+ this.list[0]);
-          this.toastr.error("No fue posible agregar registro", "Datos invalido identificador");
+          this.toastr.error("No fue posible agregar registro", "Datos invalido en identificador");
         }
         else{
           for (let j = 0; j < this.list.length; j++) { // cols

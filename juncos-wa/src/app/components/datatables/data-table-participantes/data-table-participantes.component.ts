@@ -67,27 +67,31 @@ export class DataTableParticipantesComponent implements OnInit {
       
       this.list = result;
       var  csvRecord= <ParticipantInterface>{}
-      
+      var bool = 0;
       if(this.list.length == 1){
-        console.log(this.list[0]);
+        console.log("Obteniendo objeto a eliminar:"+ this.list[0][this.storedColumns[0]]);
+        this.list[0]= this.list[0][this.storedColumns[0]];
+        bool=1;
       }
-      else{
-        this.identificadores = new Array();
-        console.log("Tomando informacion en base");
-        var ids = this.service.getParticipantesMod();
-        var allIds = ids.get().subscribe(snapshot => {
-          snapshot.forEach(doc => {
-            var x = doc.data();
-            var y = doc.id;
-            if(x[this.storedColumns[0]] == this.list[0]){
-              this.identificadores.push(y);
-            }
-          
-          });
-          if(this.identificadores.length == 0){
-            this.toastr.error("Identificador no existente", "Datos invalidos ");
+      
+      
+      this.identificadores = new Array();
+      console.log("Tomando informacion en base");
+      var ids = this.service.getParticipantesMod();
+      var allIds = ids.get().subscribe(snapshot => {
+        snapshot.forEach(doc => {
+          var x = doc.data();
+          var y = doc.id;
+          if(x[this.storedColumns[0]] == this.list[0]){
+            this.identificadores.push(y);
           }
-          else{
+        
+        });
+        if(this.identificadores.length == 0){
+          this.toastr.error("Identificador no existente", "Datos invalidos ");
+        }
+        else{
+          if(bool == 0){
             for (let j = 0; j < this.list.length; j++) { // cols
               csvRecord[this.storedColumns[j]] = this.list[j];
               this.firestore.collection('participantes')  
@@ -96,11 +100,19 @@ export class DataTableParticipantesComponent implements OnInit {
             this.firestore.doc('participantes/' + this.identificadores[0]).update(data);
             this.toastr.success("Registro modificado exitosamente", "Aceptar");
             this.router.navigate(['participantes']);
-          }      
+          }
+          else{
+            //console.log("IDa eliminar: "+  this.identificadores[0]);
+            this.firestore.doc('participantes/' + this.identificadores[0]).delete();
+            this.toastr.warning("Registro eliminado exitosamente", "Aceptar");
 
-        }) 
-      }
-    });
+          }
+          
+        }      
+
+      }) 
+    
+  });
     
 
   }

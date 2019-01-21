@@ -53,6 +53,14 @@ export class DataTableUniversidadesComponent implements OnInit {
       var  csvRecord= <UniversidadInterface>{}
      
       this.identificadores = new Array();
+      
+      var bool = 0;
+      if(this.list.length == 1){
+        console.log("Obteniendo objeto a eliminar:"+ this.list[0][this.storedColumns[0]]);
+        this.list[0]= this.list[0][this.storedColumns[0]];
+        bool=1;
+      }
+      
       console.log("Tomando informacion en base");
       var ids = this.service.getUniverisdadesMod();
       var allIds = ids.get().subscribe(snapshot => {
@@ -68,14 +76,23 @@ export class DataTableUniversidadesComponent implements OnInit {
           this.toastr.error("Identificador no existente", "Datos invalidos ");
         }
         else{
-          for (let j = 0; j < this.list.length; j++) { // cols
-            csvRecord[this.storedColumns[j]] = this.list[j];
-            this.firestore.collection('universidades')  
+          if(bool == 0){
+            for (let j = 0; j < this.list.length; j++) { // cols
+              csvRecord[this.storedColumns[j]] = this.list[j];
+              this.firestore.collection('universidades')  
+            }
+            var data = JSON.parse(JSON.stringify(csvRecord));
+            this.firestore.doc('universidades/' + this.identificadores[0]).update(data);
+            this.toastr.success("Registro modificado exitosamente", "Aceptar");
+            this.router.navigate(['universidades']);
           }
-          var data = JSON.parse(JSON.stringify(csvRecord));
-          this.firestore.doc('universidades/' + this.identificadores[0]).update(data);
-          this.toastr.success("Registro modificado exitosamente", "Aceptar");
-          this.router.navigate(['universidades']);
+          
+          else{
+            //console.log("IDa eliminar: "+  this.identificadores[0]);
+            this.firestore.doc('universidades/' + this.identificadores[0]).delete();
+            this.toastr.warning("Registro eliminado exitosamente", "Aceptar");
+
+          }
         }      
 
       }) 
