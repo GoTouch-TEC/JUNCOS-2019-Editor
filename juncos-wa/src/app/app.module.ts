@@ -43,6 +43,7 @@ import { CsvLugaresComponent } from './csvComponents/csv-lugares/csv-lugares.com
 import { CsvEventosComponent } from './csvComponents/csv-eventos/csv-eventos.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { dialogForm } from './components/dialogs/dialogForm';
+import { dialogFormCsv} from './csvComponents/dialogs/dialogForm';
 import { UserManualComponent } from './pages/user-manual/user-manual.component';
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { UserManualComponent } from './pages/user-manual/user-manual.component';
     CsvLugaresComponent,
     CsvEventosComponent,
     dialogForm,
-    UserManualComponent
+    UserManualComponent,
+    dialogFormCsv
   ],
   imports: [
     ReactiveFormsModule,
@@ -96,7 +98,7 @@ import { UserManualComponent } from './pages/user-manual/user-manual.component';
     AngularFireDatabaseModule,
     AngularFireStorageModule,
   ],
-  entryComponents: [ dialogForm],
+  entryComponents: [dialogFormCsv, dialogForm],
   providers: [AngularFireAuth, AngularFirestore],
   bootstrap: [AppComponent]
 })
