@@ -2,6 +2,7 @@ import {MatDialogModule,MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular
 import { FormGroup, FormArray, FormBuilder, FormControl, AbstractControl } from '@angular/forms';
 import { Component, Inject } from '@angular/core';
 import { isUndefined } from 'util';
+import { storedColumns } from 'src/app/interfaces/EventoInterface';
 
 @Component({
     selector: 'template-dialog',
@@ -17,21 +18,22 @@ export class dialogForm {
     orders = [];
     private inputVar: string;
     private undefinedValue: Boolean = false;
-
+    
     constructor(public dialogRef: MatDialogRef<dialogForm>,@Inject(MAT_DIALOG_DATA) public data, 
     private formBuilder: FormBuilder) {
 
         this.inputVar = "";
-        console.log(this.data.objeto)
+       
         
         if(this.data.objeto == null){
           this.data.objeto = {}
           this.undefinedValue = true;
  
         }
+        
 
         for (let index = 0; index < this.data.displayedColumns.length; index++) {
-          this.orders.push({id:index,name: this.data.displayedColumns[index], valor: this.data.objeto[this.data.storedColumns[index]]});
+          this.orders.push({id:index,st:this.data.storedColumns[index],name: this.data.displayedColumns[index], valor: this.data.objeto[this.data.storedColumns[index]]});
         }
     
     
@@ -56,10 +58,10 @@ export class dialogForm {
       
       for (let index = 0; index < this.data.displayedColumns.length; index++) {
         this.item = this.form.controls.orders.get(String(index)).value;
-        console.log(this.item)
+        //console.log(this.form.controls.orders.get(String(index)))
         
-        if(this.item != null){
-          //console.log(this.item);
+        if(this.item != null && this.item != ""){
+          console.log(this.item);
           this.list.push(this.item);
         }
         else{
