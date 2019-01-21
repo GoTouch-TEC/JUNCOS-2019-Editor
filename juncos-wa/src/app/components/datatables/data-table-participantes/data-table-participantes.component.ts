@@ -4,7 +4,7 @@ import { DataTableParticipantesDataSource } from './data-table-participantes-dat
 import { GetCollections } from '../../../services/getCollections.service'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr'
-
+import { Router } from '@angular/router';
 import {MatDialogModule,MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ParticipantInterface,storedColumns as sc,displayedColumns as dc} from '../../../interfaces/ParticpantInterface'
 import { dialogForm } from '../../dialogs/dialogForm';
@@ -17,11 +17,12 @@ import { dialogForm } from '../../dialogs/dialogForm';
 export class DataTableParticipantesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  
+  private identificadores= []; 
   dataSource: DataTableParticipantesDataSource;
   data: ParticipantInterface[];
   
-  constructor(private service: GetCollections,
+  constructor(private router: Router,
+    private service: GetCollections,
     private firestore: AngularFirestore,
     private toastr:ToastrService,public dialog: MatDialog) { }
 
@@ -54,20 +55,47 @@ export class DataTableParticipantesComponent implements OnInit {
  
   list:string[];
 
-  
-  openDialog(dato:any): void {
-    console.log(dato)
+
+  openDialog(dato: any): void {
     const dialogRef = this.dialog.open(dialogForm, {
       width: '400px',
       height: '70%',
-      data: {displayedColumns: this.displayedColumns,storedColumns: this.storedColumns,objeto: dato}
+     data: {displayedColumns: this.displayedColumns,storedColumns: this.storedColumns,objeto: dato}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result)
+      
       this.list = result;
-      //hay que agarrar list, validar los datos e insertarlos a la base de datos
+      var  csvRecord= <ParticipantInterface>{}
+     
+      this.identificadores = new Array();
+      console.log("Tomando informacion en base");
+      var ids = this.service.getParticipantesMod();
+      var allIds = ids.get().subscribe(snapshot => {
+        snapshot.forEach(doc => {
+          var x = doc.data();
+          var y = doc.id;
+          if(x[this.storedColumns[0]] == this.list[0]){
+            this.identificadores.push(y);
+          }
+        
+        });
+        if(this.identificadores.length == 0){
+          this.toastr.error("Identificador no existente", "Datos invalidos ");
+        }
+        else{
+          for (let j = 0; j < this.list.length; j++) { // cols
+            csvRecord[this.storedColumns[j]] = this.list[j];
+            this.firestore.collection('participantes')  
+          }
+          var data = JSON.parse(JSON.stringify(csvRecord));
+          this.firestore.doc('participantes/' + this.identificadores[0]).update(data);
+          this.toastr.success("Registro modificado exitosamente", "Aceptar");
+          this.router.navigate(['participantes']);
+        }      
+
+      }) 
+
     });
 
   }
