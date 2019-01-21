@@ -37,33 +37,33 @@
 
 
 
-<mat-sidenav-container class="sidenav-container" >
+<mat-sidenav-container class="sidenav-container">
     
-    <mat-sidenav  style="width: 15%" #drawer class="sidenav color_side_nav"  fixedInViewport="false"
+    <mat-sidenav style="width: 15%" #drawer class="sidenav color_side_nav"  fixedInViewport="false"
   
         [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="!(isHandset$ | async)" 
         >
-    
-  
+
       <mat-nav-list *ngIf="isLogged">
-        <a mat-list-item routerLink="/mainPage" class="color_white" routerLinkActive="active-list-item">Pagina Principal</a>
+
+        <a mat-list-item routerLink="/mainPage" class="color_white" >Pagina Principal</a>
         <mat-divider class="color_white"></mat-divider>
 
-        <a mat-list-item routerLink="/participantes" class="color_white" routerLinkActive="active-list-item">Participantes</a>
+        <a mat-list-item routerLink="/participantes" class="color_white" >Participantes</a>
         <mat-divider class="color_white"></mat-divider>
 
-        <a mat-list-item routerLink="/lugares" class="color_white" routerLinkActive="active-list-item">Lugares</a>
+        <a mat-list-item routerLink="/lugares" class="color_white" >Lugares</a>
         <mat-divider class="color_white"></mat-divider>
 
-        <a mat-list-item routerLink="/universidades" class="color_white" routerLinkActive="active-list-item">Universidades</a>
+        <a mat-list-item routerLink="/universidades" class="color_white" >Universidades</a>
         <mat-divider class="color_white"></mat-divider>
 
-        <a mat-list-item routerLink="/medallero" class="color_white" routerLinkActive="active-list-item">Medallero</a>
+        <a mat-list-item routerLink="/medallero" class="color_white" >Medallero</a>
         <mat-divider class="color_white"></mat-divider>
 
-        <a mat-list-item routerLink="/eventos" class="color_white" routerLinkActive="active-list-item">Eventos</a>
+        <a mat-list-item routerLink="/eventos" class="color_white" >Eventos</a>
         <mat-divider class="color_white"></mat-divider>
   
       </mat-nav-list>

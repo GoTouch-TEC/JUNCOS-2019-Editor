@@ -13,3 +13,13 @@
     background-color: gray;
     color: #fff;
 }
+
+.btn_agregar_color{
+    background-color: rgb(38, 77, 185);
+    color: #fff;
+}
+
+.btn_importar_color{
+    background-color: rgb(100, 100, 100);
+    color: #fff;
+}

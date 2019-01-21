@@ -8,6 +8,8 @@ import { GetCollections } from '../../services/getCollections.service';
 import {DataSource} from '@angular/cdk/collections';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { dialogFormCsv } from '../dialogs/dialogForm';
+import { MatDialog } from '@angular/material';
 
 const list: LugarInterface[]=[]
 
@@ -21,7 +23,7 @@ export class CsvLugaresComponent {
   title = 'app';
   public csvRecords: LugarInterface[] = [];
   
-  constructor( private service :GetCollections,private router: Router, private firestore: AngularFirestore,  private toastr: ToastrService) { }
+  constructor( public dialog: MatDialog,private service :GetCollections,private router: Router, private firestore: AngularFirestore,  private toastr: ToastrService) { }
   
   @ViewChild('fileImportInput') fileImportInput: any;
   
@@ -173,9 +175,24 @@ export class CsvLugaresComponent {
  }
 
   
- 
+ list:string[];
+ openDialog(dato:any): void {
+    const dialogRef = this.dialog.open(dialogFormCsv, {
+      width: '400px',
+      height: '70%',
+      data: {displayedColumns: this.displayedColumns,storedColumns: this.storedColumns,objeto: dato}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result)
+      this.list = result;
+      //hay que agarrar list, validar los datos e insertarlos a la base de datos
+    });
+
+  }
+
 }
- 
 export class tableDataSource extends DataSource<any> {
   dataStream = new BehaviorSubject<LugarInterface[]>( list);
 
