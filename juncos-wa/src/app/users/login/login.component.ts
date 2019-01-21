@@ -36,34 +36,6 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  // onLoginGoogle(): void {
-  //   this.authService.loginGoogleUser()
-  //     .then((res) => {
-  //       this.onLoginRedirect();
-  //     }).catch(err => console.log('err', err.message));
-  // }
-
-//   resetForm(form?: NgForm) {
-//     if (form != null)
-//       form.resetForm();
-//     this.service.formData = {
-//       id: null,
-//       username: '',
-//       password: '',
-//     }
-//   }
-
-//   onSubmit(form: NgForm) {
-//     let data = Object.assign({}, form.value);
-//     delete data.id;
-//     if (form.value.id == null)
-//       this.firestore.collection('users').add(data);
-//     else
-//       this.firestore.doc('users/' + form.value.id).update(data);
-//     this.resetForm(form);
-//     this.toastr.success('Admin registrado exitosamente', 'Registrar Admin');
-// }
-
   onLogout() {
     this.authService.logoutUser();
   }

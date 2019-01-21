@@ -23,6 +23,7 @@ export class MainNavComponent implements OnInit{
   constructor(private login: LoginComponent ,private breakpointObserver: BreakpointObserver, private authService: AuthService, private afsAuth: AngularFireAuth) { }
   public app_name: string = 'JUNCOS';
   public isLogged: boolean = false;
+
   ngOnInit() {
     this.getCurrentUser();
   }
