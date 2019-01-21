@@ -46,24 +46,24 @@
         [opened]="!(isHandset$ | async)" 
         >
 
-      <mat-nav-list *ngIf="isLogged">
+      <mat-nav-list >
 
         <a mat-list-item routerLink="/mainPage" class="color_white" >Pagina Principal</a>
         <mat-divider class="color_white"></mat-divider>
 
-        <a mat-list-item routerLink="/participantes" class="color_white" >Participantes</a>
+        <a mat-list-item routerLink="/participantes" class="color_white" *ngIf="isLogged">Participantes</a>
         <mat-divider class="color_white"></mat-divider>
 
-        <a mat-list-item routerLink="/lugares" class="color_white" >Lugares</a>
+        <a mat-list-item routerLink="/lugares" class="color_white" *ngIf="isLogged">Lugares</a>
         <mat-divider class="color_white"></mat-divider>
 
-        <a mat-list-item routerLink="/universidades" class="color_white" >Universidades</a>
+        <a mat-list-item routerLink="/universidades" class="color_white" *ngIf="isLogged">Universidades</a>
         <mat-divider class="color_white"></mat-divider>
 
-        <a mat-list-item routerLink="/medallero" class="color_white" >Medallero</a>
+        <a mat-list-item routerLink="/medallero" class="color_white" *ngIf="isLogged">Medallero</a>
         <mat-divider class="color_white"></mat-divider>
 
-        <a mat-list-item routerLink="/eventos" class="color_white" >Eventos</a>
+        <a mat-list-item routerLink="/eventos" class="color_white" *ngIf="isLogged">Eventos</a>
         <mat-divider class="color_white"></mat-divider>
   
       </mat-nav-list>
