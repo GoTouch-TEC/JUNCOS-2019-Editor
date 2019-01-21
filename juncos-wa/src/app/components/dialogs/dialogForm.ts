@@ -19,6 +19,8 @@ export class dialogForm {
     valid=false;
     bool:Boolean=true;
     orders = [];
+
+
     private inputVar: string;
     private undefinedValue: Boolean = false;
     private onEditBool: Boolean = false;
@@ -35,13 +37,15 @@ export class dialogForm {
           this.onEditBool = true;
         }
         if(this.data.objeto == null){
-          this.data.objeto = {}
+          console.log("objeto es null");
+          this.data.objeto = {};
           this.undefinedValue = true;
         }
         
 
         for (let index = 0; index < this.data.displayedColumns.length; index++) {
-          this.orders.push({id:index,st:this.data.storedColumns[index],name: this.data.displayedColumns[index], valor: this.data.objeto[this.data.storedColumns[index]]});
+          this.orders.push({id:index,st:this.data.storedColumns[index],name: this.data.displayedColumns[index], 
+            valor: this.data.objeto[this.data.storedColumns[index]]});
         }
     
     
@@ -64,11 +68,10 @@ export class dialogForm {
       this.onEditBool = true;
     }
 
-    onClickDelete(id:any){
-      if (confirm("Esta seguro que desea eliminar este usuario?")) {
-        this.firestore.doc('users/' + id).delete();
-        this.toastr.warning('Usuario eliminado exitosamente','Registro Admin');
-      }
+    onClickDelete(){
+      this.list.push(this.data.objeto);
+      this.dialogRef.close(this.list);
+      
     }
     
     submit() {
@@ -77,6 +80,7 @@ export class dialogForm {
       
       for (let index = 0; index < this.data.displayedColumns.length; index++) {
         this.item = this.form.controls.orders.get(String(index)).value;
+        
         //console.log(this.form.controls.orders.get(String(index)))
         
         if(this.item != null && this.item != ""){

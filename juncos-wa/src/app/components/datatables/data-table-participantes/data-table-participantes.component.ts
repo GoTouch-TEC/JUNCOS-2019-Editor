@@ -67,36 +67,41 @@ export class DataTableParticipantesComponent implements OnInit {
       
       this.list = result;
       var  csvRecord= <ParticipantInterface>{}
-     
-      this.identificadores = new Array();
-      console.log("Tomando informacion en base");
-      var ids = this.service.getParticipantesMod();
-      var allIds = ids.get().subscribe(snapshot => {
-        snapshot.forEach(doc => {
-          var x = doc.data();
-          var y = doc.id;
-          if(x[this.storedColumns[0]] == this.list[0]){
-            this.identificadores.push(y);
+      
+      if(this.list.length == 1){
+        console.log(this.list[0]);
+      }
+      else{
+        this.identificadores = new Array();
+        console.log("Tomando informacion en base");
+        var ids = this.service.getParticipantesMod();
+        var allIds = ids.get().subscribe(snapshot => {
+          snapshot.forEach(doc => {
+            var x = doc.data();
+            var y = doc.id;
+            if(x[this.storedColumns[0]] == this.list[0]){
+              this.identificadores.push(y);
+            }
+          
+          });
+          if(this.identificadores.length == 0){
+            this.toastr.error("Identificador no existente", "Datos invalidos ");
           }
-        
-        });
-        if(this.identificadores.length == 0){
-          this.toastr.error("Identificador no existente", "Datos invalidos ");
-        }
-        else{
-          for (let j = 0; j < this.list.length; j++) { // cols
-            csvRecord[this.storedColumns[j]] = this.list[j];
-            this.firestore.collection('participantes')  
-          }
-          var data = JSON.parse(JSON.stringify(csvRecord));
-          this.firestore.doc('participantes/' + this.identificadores[0]).update(data);
-          this.toastr.success("Registro modificado exitosamente", "Aceptar");
-          this.router.navigate(['participantes']);
-        }      
+          else{
+            for (let j = 0; j < this.list.length; j++) { // cols
+              csvRecord[this.storedColumns[j]] = this.list[j];
+              this.firestore.collection('participantes')  
+            }
+            var data = JSON.parse(JSON.stringify(csvRecord));
+            this.firestore.doc('participantes/' + this.identificadores[0]).update(data);
+            this.toastr.success("Registro modificado exitosamente", "Aceptar");
+            this.router.navigate(['participantes']);
+          }      
 
-      }) 
-
+        }) 
+      }
     });
+    
 
   }
 
