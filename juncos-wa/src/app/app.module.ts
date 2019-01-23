@@ -45,6 +45,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { dialogForm } from './components/dialogs/dialogForm';
 import { dialogFormCsv} from './csvComponents/dialogs/dialogForm';
 import { UserManualComponent } from './pages/user-manual/user-manual.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
