@@ -23,8 +23,8 @@ export class dialogForm {
 
     private inputVar: string;
     private undefinedValue: Boolean = false;
-    private onEditBool: Boolean = false;
-    private isItOnAdd:Boolean = false;
+    public onEditBool: Boolean = false;
+    public isItOnAdd:Boolean = false;
 
     constructor(private firestore: AngularFirestore,
     private toastr:ToastrService,public dialogRef: MatDialogRef<dialogForm>,@Inject(MAT_DIALOG_DATA) public data, 

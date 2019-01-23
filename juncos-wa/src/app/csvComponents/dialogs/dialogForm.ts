@@ -19,8 +19,8 @@ export class dialogFormCsv {
     orders = [];
     private inputVar: string;
     private undefinedValue: Boolean = false;
-    private onEditBool: Boolean = false;
-    private isItOnAdd:Boolean = false;
+    public onEditBool: Boolean = false;
+    public isItOnAdd:Boolean = false;
     constructor(public dialogRef: MatDialogRef<dialogFormCsv>,@Inject(MAT_DIALOG_DATA) public data, 
     private formBuilder: FormBuilder) {
 
