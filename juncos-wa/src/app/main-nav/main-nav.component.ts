@@ -40,6 +40,10 @@ export class MainNavComponent implements OnInit{
     });
   }
 
+  getLogin() {
+    return this.isLogged;
+  }
+
   // onLogin(){
   //     this.login.onLoginGoogle();
   // }

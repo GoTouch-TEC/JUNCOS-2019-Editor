@@ -8,29 +8,31 @@ import { LoginComponent } from './users/login/login.component';
 import { UniversidadesComponent } from './components/universidades/universidades.component';
 import { LugaresComponent } from './components/lugares/lugares.component';
 import { Page404Component } from './pages/./page404/page404.component';
-// import { AuthGuard } from './guards/auth.guard';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { CsvEventosComponent } from './csvComponents/csv-eventos/csv-eventos.component';
 import { CsvLugaresComponent } from './csvComponents/csv-lugares/csv-lugares.component';
 import { CsvMedalleroComponent } from './csvComponents/csv-medallero/csv-medallero.component';
 import { CsvParticipantesComponent } from './csvComponents/csv-participantes/csv-participantes.component';
 import { CsvUniversidadesComponent } from './csvComponents/csv-universidades/csv-universidades.component';
+import { AuthGuard } from './guards/auth.guard';
+
+
 const routes: Routes = [
   //{ path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'mainNav', component: MainNavComponent},
   { path: 'login', component: MainPageComponent},
   { path: 'mainPage', component: MainPageComponent},
-  { path: 'universidades' ,component: UniversidadesComponent},
-  { path: 'participantes' ,component: ParticipantesComponent},
-  { path: 'eventos', component: EventosComponent},
-  { path: 'medallero', component: MedalleroComponent},
-  { path: 'lugares', component: LugaresComponent},
-  { path: 'user/login', component: LoginComponent },
-  { path: 'readCSV/eventos', component: CsvEventosComponent },
-  { path: 'readCSV/lugares', component: CsvLugaresComponent },
-  { path: 'readCSV/medallero', component: CsvMedalleroComponent },
-  { path: 'readCSV/participantes', component: CsvParticipantesComponent },
-  { path: 'readCSV/universidades', component: CsvUniversidadesComponent },
+  { path: 'universidades' ,component: UniversidadesComponent, canActivate: [AuthGuard] },
+  { path: 'participantes' ,component: ParticipantesComponent, canActivate: [AuthGuard] },
+  { path: 'eventos', component: EventosComponent, canActivate: [AuthGuard] },
+  { path: 'medallero', component: MedalleroComponent, canActivate: [AuthGuard] },
+  { path: 'lugares', component: LugaresComponent, canActivate: [AuthGuard] },
+  { path: 'user/login', component: LoginComponent},
+  { path: 'readCSV/eventos', component: CsvEventosComponent , canActivate: [AuthGuard] },
+  { path: 'readCSV/lugares', component: CsvLugaresComponent , canActivate: [AuthGuard] },
+  { path: 'readCSV/medallero', component: CsvMedalleroComponent , canActivate: [AuthGuard] },
+  { path: 'readCSV/participantes', component: CsvParticipantesComponent , canActivate: [AuthGuard] },
+  { path: 'readCSV/universidades', component: CsvUniversidadesComponent , canActivate: [AuthGuard] },
   { path: '**', component: Page404Component }
 ];
 

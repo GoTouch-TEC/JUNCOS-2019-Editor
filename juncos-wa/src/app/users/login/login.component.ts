@@ -29,10 +29,12 @@ export class LoginComponent implements OnInit {
       .then((res) => {
         this.onLoginRedirect();
         this.toastr.success('Inició sesión', 'Bienvenido');
+
       }).catch(err => {console.log('err', err.message); 
         this.toastr.error('Credenciales invalidos','Error');
         this.isInvalidUser = true;
         this.isInvalidPassword = true
+
       });
   }
 

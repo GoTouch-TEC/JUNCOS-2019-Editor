@@ -1,7 +1,7 @@
 
-<div class="center" *ngIf="isLogged">
+<div class="center">
     <button mat-raised-button class="btn btn_agregar_color" (click)="openDialog()">Agregar</button>
     <button mat-raised-button class="btn btn_importar_color" routerLink="/readCSV/participantes">Importar</button>
   </div>
   
-  <app-data-table-participantes *ngIf="isLogged"></app-data-table-participantes>
+  <app-data-table-participantes></app-data-table-participantes>
