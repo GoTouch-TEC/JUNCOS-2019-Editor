@@ -149,7 +149,7 @@ export class CsvEventosComponent {
         if(this.identificadores.find(x => x === data[this.storedColumns[0]]) ){
          // console.log("Elemento ya existente en base de datos:" + data.identification );
      
-          information+=("\n Titulo de Evento:"+ data[this.storedColumns[3]] +"  Identificador: "+data[this.storedColumns[0]] + " Fecha: "+data[this.storedColumns[1]]);
+          information+=("\nIdentificador: "+data[this.storedColumns[0]]);
           bool=1;
         }
         else{

@@ -142,7 +142,7 @@ export class CsvUniversidadesComponent {
         
         if(this.identificadores.find(x => x === data[this.storedColumns[0]]) ){
          // console.log("Elemento ya existente en base de datos:" + data.identification );
-          information+=("\n Nombre de Universidad:"+ data[this.storedColumns[1]] +"  Identificador: "+data[this.storedColumns[0]]);
+          information+=("\nIdentificador: "+data[this.storedColumns[0]]);
           bool=1;
         }
         else{

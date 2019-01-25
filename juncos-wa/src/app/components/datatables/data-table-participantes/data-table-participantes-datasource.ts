@@ -28,7 +28,7 @@ export class DataTableParticipantesDataSource extends DataSource<ParticipantInte
     this.service.getParticipantes().subscribe(actionArray => {
       this.data= actionArray.map(item => {
         return {
-          email: item.payload.doc.id,
+          identification: item.payload.doc.id,
           ...item.payload.doc.data()
         } as ParticipantInterface;
       })

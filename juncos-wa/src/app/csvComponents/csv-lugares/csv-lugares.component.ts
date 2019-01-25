@@ -144,7 +144,7 @@ export class CsvLugaresComponent {
         
         if(this.identificadores.find(x => x === data[this.storedColumns[0]]) ){
           console.log("Elemento ya existente en base de datos:" + data[this.storedColumns[0]] );
-          information+=("\n Nombre del lugar:"+ data[this.storedColumns[0]]);
+          information+=("\nIdentificador:"+ data[this.storedColumns[0]]);
           bool=1;
         }
         else{

@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { OnInit } from '@angular/core';
 import { GetCollections } from '../../../services/getCollections.service'
-import { LugarInterface } from '../../../interfaces/LugarInterface'
+import { LugarInterface, storedColumns as sc } from '../../../interfaces/LugarInterface'
 
 const list: LugarInterface[]=[]
 
@@ -26,7 +26,7 @@ export class DataTableLugaresDataSource extends DataSource<LugarInterface> imple
     this.service.getLugar().subscribe(actionArray => {
       this.data= actionArray.map(item => {
         return {
-          address: item.payload.doc.id,
+          identification: item.payload.doc.id,
           ...item.payload.doc.data()
         } as LugarInterface;
       })

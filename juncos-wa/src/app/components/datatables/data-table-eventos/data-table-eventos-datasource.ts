@@ -26,7 +26,7 @@ export class DataTableEventosDataSource extends DataSource<EventosInterface> imp
     this.service.getEventos().subscribe(actionArray => {
       this.data= actionArray.map(item => {
         return {
-          date: item.payload.doc.id,
+          identification: item.payload.doc.id,
           ...item.payload.doc.data()
         } as EventosInterface;
       })

@@ -22,7 +22,7 @@ export class DataTableMedalleroDataSource extends DataSource<MedalleroInterface>
     this.service.getMedallero().subscribe(actionArray => {
       this.data= actionArray.map(item => {
         return {
-          nameUniversity: item.payload.doc.id,
+          identification: item.payload.doc.id,
           ...item.payload.doc.data()
         } as MedalleroInterface;
       })
